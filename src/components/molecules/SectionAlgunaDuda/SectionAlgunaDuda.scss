@@ -1,0 +1,131 @@
+
+    /* Base - Mobile (320px+) */
+    .contenedor-azul {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr auto;
+        border: 1px solid #05297A;
+        border-radius: 24px;
+        // padding: 30px 20px 0;
+        padding-left: 30px;
+        min-height: 550px;
+        overflow: hidden;
+    }
+
+    .contenido-superior {
+        grid-column: 1;
+        grid-row: 1;
+        z-index: 1;
+    }
+
+    .img-personas {
+        grid-column: 1;
+        grid-row: 2;
+        width: 90%;
+        max-width: 280px;
+        height: auto;
+        justify-self: center;
+        align-self: end;
+    }
+
+    /* Móviles medianos: 375px+ */
+    @media (min-width: 375px) {
+        .contenedor-azul {
+            min-height: 600px;
+            // padding: 40px 24px 0;
+        }
+        
+        .img-personas {
+            max-width: 320px;
+        }
+    }
+
+    /* Móviles grandes: 414px+ */
+    @media (min-width: 414px) {
+        .img-personas {
+            max-width: 360px;
+        }
+    }
+
+    /* Tablets: 768px+ - IMAGEN SOBRESALIENDO */
+    @media (min-width: 768px) {
+        .contenedor-azul {
+            grid-template-columns: 1fr 400px; /* Columna fija para imagen */
+            grid-template-rows: 1fr;
+            // padding: 50px 40px;
+            height: 400px;
+            min-height: unset;
+            align-items: center;
+            gap: 0;
+            overflow: visible; /* Permite que salga */
+            position: relative;
+        }
+        
+        .contenido-superior {
+            grid-column: 1;
+            grid-row: 1;
+            align-self: center;
+            padding-right: 40px;
+        }
+        
+        .img-personas {
+            grid-column: 2;
+            grid-row: 1;
+            width: auto; /* Más ancha que su columna */
+            max-width: none;
+            height: auto;
+            // max-height: 600px; /* Sobresale arriba y abajo */
+            justify-self: end;
+            align-self: center;
+            position: absolute;
+            right: -17px; /* Sale a la derecha */
+            z-index: 2;
+            object-fit: contain;
+            bottom: -1px;
+        }
+    }
+
+    /* Laptops: 1024px+ */
+    @media (min-width: 1024px) {
+        .contenedor-azul {
+            grid-template-columns: 1fr 450px;
+            // padding: 60px 60px;
+            gap: 20px;
+        }
+        
+        // .img-personas {
+        //     width: 550px;
+        //     max-height: 650px;
+        //     right: -60px;
+        // }
+    }
+
+    /* Desktop: 1280px+ */
+    @media (min-width: 1280px) {
+        .contenedor-azul {
+            grid-template-columns: 1fr 500px;
+            // padding: 70px 80px;
+            gap: 40px;
+        }
+        
+        // .img-personas {
+        //     width: 600px;
+        //     max-height: 700px;
+        //     right: -80px;
+        // }
+    }
+
+    /* Desktop grande: 1440px+ */
+    @media (min-width: 1440px) {
+        .contenedor-azul {
+            grid-template-columns: 1fr 550px;
+            // padding: 80px 100px;
+            gap: 60px;
+        }
+        
+        // .img-personas {
+        //     width: 650px;
+        //     max-height: 750px;
+        //     right: -100px;
+        // }
+    }

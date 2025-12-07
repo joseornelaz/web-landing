@@ -1,0 +1,136 @@
+.timeline-container {
+  position: relative;
+  padding: 32px 16px;
+
+  @media (min-width: 900px) {
+    padding: 32px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 0px;
+  }
+
+}
+
+.timeline-step {
+  display: flex;
+  gap: 16px;
+  position: relative;
+  margin-bottom: 20px;
+
+  @media (min-width: 900px) {
+    gap: 60px;
+  }
+
+  @media (max-width: 900px) {
+    gap: 50px;
+  }
+
+  @media (max-width: 600px) {
+    gap: 35px;
+  }
+
+  &.last-step {
+    margin-bottom: 0;
+  }
+}
+
+.circle-container {
+  position: relative;
+  flex-shrink: 0;
+
+  &.even {
+    left: 0%;
+  }
+
+  &.odd {
+    left: 5%;
+  }
+}
+
+.diagonal-line {
+  position: absolute;
+  width: 3px;
+  height: 40px;
+  transform-origin: top center;
+  z-index: 0;
+
+  @media (min-width: 900px) {
+    height: 50px;
+  }
+
+  // Línea par (hacia la izquierda)
+  &.even {
+    left: 60%;
+    top: 80%;
+    transform: translateX(-50%) rotate(-35deg);
+
+    @media (max-width: 600px) {
+        height: 80px;
+        left: 20%;
+        top: 50%;        
+    }
+
+
+    &.second-to-last {
+      left: 30%;
+      top: 50%;
+
+      @media (min-width: 900px) {
+        height: 100px;
+      }
+
+      @media (max-width: 900px) {
+        height: 135px;
+        left: 30%;
+        top: 30%;
+        transform: translateX(-50%) rotate(-11deg);
+      }
+    }
+  }
+
+  // Línea impar (hacia la derecha)
+  &.odd {
+    left: 30%;
+    top: 80%;
+    transform: translateX(-50%) rotate(35deg);
+
+    @media (max-width: 600px) {
+        height: 80px;
+        left: 62%;
+        top: 53%;
+        transform: translateX(-50%) rotate(28deg);
+    }
+  }
+}
+
+.circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+
+  @media (min-width: 900px) {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.circle-number {
+  font-size: 20px;
+  font-weight: 700;
+  color: #003DA5;
+
+  @media (min-width: 900px) {
+    font-size: 24px;
+  }
+}
+
+.step-content {
+  flex: 1;
+  padding-top: 4px;
+}
