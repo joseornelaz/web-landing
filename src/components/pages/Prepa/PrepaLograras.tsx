@@ -2,6 +2,7 @@ import Box from "@mui/material/Box"
 import { Typography } from "../../atoms/Typography/Typography"
 import { FlexColumn } from "../../../styles/styles"
 import CardCarousel from "../../molecules/CardCarousel/CardCarousel"
+import { SectionLograras } from "../../molecules/SectionLograras/SectionLograras";
 
 const testimonials = [
   {
@@ -28,19 +29,6 @@ const testimonials = [
 
 export const PrepaLograras: React.FC = () => {
     return(
-        <Box
-            sx={{
-                ...FlexColumn,                
-                alignItems: 'center',
-                justifyItems: 'center',
-                gap: '58px',
-                width: '100%'
-            }}
-        >
-            <Typography component="h3" variant="h3" sxProps={{ textAlign: 'center'}}>
-                Con Prepa Coppel lograrás:
-            </Typography>
-            <CardCarousel items={testimonials} type="prepa" />
-        </Box>
+      <SectionLograras item={{ title: 'Con Prepa Coppel lograrás:', itemsCarousel: testimonials }} />
     )
 }

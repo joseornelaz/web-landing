@@ -84,7 +84,7 @@ const CardCarousel:React.FC<CardCarouselProps> = ({ items, type }) => {
     dots: false,
     infinite: true,
     speed: 500,
-    autoplay: false, 
+    autoplay: true, 
     autoplaySpeed: 3000, // 3000 milisegundos (3 segundos)
     slidesToShow: (isMobile || isTablet) ? 1 : 3, // 1 en móvil, 2 en tablet, 3 en desktop
     slidesToScroll: 1,
