@@ -12,8 +12,8 @@ export const BoxContainer: React.FC<BoxContainerProps> = ({ children, sxProps, b
     
     const setBackground = () => {
         switch(backgroundColor) {
-            case "grey": return theme.palette.primary[100];
-            case "light": return theme.palette.primary[50];
+            case "grey": return theme.palette.grey[100];
+            case "light": return theme.palette.grey[50];
             case "blank": return undefined;
         }
     }
@@ -25,7 +25,7 @@ export const BoxContainer: React.FC<BoxContainerProps> = ({ children, sxProps, b
                     width: '100%',
                     padding: '24px',
                     borderRadius: '6px',
-                    border: `1px solid ${theme.palette.primary[200]}`,
+                    border: `1px solid ${theme.palette.grey[200]}`,
                     ...sxProps
                 }}
         >{children}</Box>

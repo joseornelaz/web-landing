@@ -12,6 +12,18 @@ const theme = createTheme({
     text: {
       primary: '#343A40',
     },
+    grey: {
+      50: '#f6f7f9',
+      100: '#eff0f6',
+      200: '#e2e7f0',
+      300: '#d3d9e4',
+      400: '#bec6d5',
+      500: '#7b8697',
+      600: '#4b5e7e',
+      700: '#3d4c67',
+      800: '#364257',
+      900: '#30394a',
+    }
   },
   typography: {
     htmlFontSize: 16,

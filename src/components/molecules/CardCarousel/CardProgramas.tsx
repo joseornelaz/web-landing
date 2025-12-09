@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Prepa02 from "../../../assets/icons/prepa02.svg?react";
-import { useTheme } from "@mui/material";
 import { FlexColumn } from "../../../styles/styles";
 
 type CardProgramasProps = {
@@ -11,8 +10,6 @@ type CardProgramasProps = {
 }
 
 export const CardProgramas: React.FC<CardProgramasProps> = ({ item, cardStyles }) => {
-    const theme = useTheme();
-
     return(
         <Card sx={cardStyles}>
             <Box sx={{...FlexColumn, alignItems: 'center', justifyContent: 'center'}}>

@@ -100,7 +100,7 @@ const CardCarousel:React.FC<CardCarouselProps> = ({ items, type }) => {
         <ul style={{ margin: "0", padding: "0" }}> {dots} </ul>
       </Box>
     ),
-    customPaging: i => (
+    customPaging: (i: any) => (
       <Box
         sx={{
           width: 10,

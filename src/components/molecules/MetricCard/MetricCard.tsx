@@ -2,8 +2,6 @@ import type { SvgIconProps } from "@mui/material/SvgIcon";
 import { BoxContainer } from "../../atoms/BoxContainer/BoxContainer";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-// import { Paddings } from "@styles";
-import { useTheme } from "@mui/material/styles";
 
 export type MetricCardProps = {
     icon?: React.ComponentType<SvgIconProps>;
@@ -12,8 +10,7 @@ export type MetricCardProps = {
     subtitle?: string;
 }
 
-export const MetricCard: React.FC<MetricCardProps> = ({ icon: Icon, title, value, subtitle }) => {
-    const theme = useTheme();
+export const MetricCard: React.FC<MetricCardProps> = ({ title, value }) => {   
 
     return (
         <BoxContainer
@@ -33,9 +30,6 @@ export const MetricCard: React.FC<MetricCardProps> = ({ icon: Icon, title, value
 
             }}
         >
-            {/* <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Typography sx={{color: theme.palette.primary[700]}}>{title}</Typography>
-            </Box> */}
             <Box sx={{display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center', justifyItems: 'center'}}>
                 <Typography variant="h1" color="primary">{value}</Typography>
                 <Typography variant="body2" sx={{textAlign: 'center'}}>{title}</Typography>

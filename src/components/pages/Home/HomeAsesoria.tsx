@@ -21,7 +21,7 @@ const programas = [
 export const HomeAsesoria: React.FC = () => {
     const theme = useTheme();
 
-    const { control, handleSubmit, formState: { errors, isValid }, reset } = useForm<AsesoriaFormData>({
+    const { control, formState: { errors } } = useForm<AsesoriaFormData>({
         resolver: zodResolver(asesoriaSchema(programas.map(p => p.id_programa)) ?? [0]),
         defaultValues: {
           nombre: '',

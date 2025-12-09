@@ -16,10 +16,6 @@ export const AppRouting = createHashRouter([
                 path: AppRoutingPaths.NIVEL,
                 Component: Component.Nivel
             },
-            {
-                path: AppRoutingPaths.PREPA,
-                Component: Component.Prepa
-            },
         ]
     }
 ])

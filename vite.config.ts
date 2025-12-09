@@ -4,15 +4,23 @@ import path from 'path';
 import svgr from 'vite-plugin-svgr';
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react(), svgr()],
-  resolve: {
-      alias: {
-        '@constants': path.resolve(__dirname, './src/types/index.tsx'),
-        '@components': path.resolve(__dirname,'./src/components/index.tsx'),
-        // '@iconsCustomizeds': path.resolve(__dirname, './src/assets/IconsCustomize'),
-        // '@styles': path.resolve(__dirname, './src/styles/styles.tsx'),
-      },
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
-  },
+
+
+
+export default defineConfig(({ mode }) => {
+  const isProduction = mode === 'production'
+
+  return {
+    base: !isProduction ? '/web-landing/' : '',
+    plugins: [react(), svgr()],
+    resolve: {
+        alias: {
+          '@constants': path.resolve(__dirname, './src/types/index.tsx'),
+          '@components': path.resolve(__dirname,'./src/components/index.tsx'),
+          // '@iconsCustomizeds': path.resolve(__dirname, './src/assets/IconsCustomize'),
+          // '@styles': path.resolve(__dirname, './src/styles/styles.tsx'),
+        },
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
+    },
+  }
 })

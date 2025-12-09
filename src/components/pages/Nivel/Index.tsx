@@ -10,12 +10,12 @@ import { SectionAlgunaDuda } from "../../molecules/SectionAlgunaDuda/SectionAlgu
 
 import { useScrollAnimation } from "../../../hooks/useScrollAnimation";
 import "../../../styles/scrollAnimation.scss";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Requisitos } from "./Requisitos";
 
 const Nivel: React.FC = () => {
     const { type } = useParams<{ type: string }>();
-    const [mainTransform, setMainTransform] = useState(0);
+    const mainTransform = 0;
     
     // Referencias para cada sección con animación
     // Ahora todas se reinician cuando cambia 'type'
