@@ -3,39 +3,20 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 
-import imgLEG from '../../../assets/section_ofrece/imgLEG.png';
-import imgPrepa from '../../../assets/section_ofrece/imgPrepa.png';
 import { Typography } from "../../atoms/Typography/Typography";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { TituloPagina } from "../TituloPagina/TituloPagina";
 import { FlexColumn, FlexRow } from "../../../styles/styles";
 
 type SectionOfreceProps = {
-    type: 'prepa' | 'leg';
+    content: { title: string; cards: string[]; imagen: any; };
 }
 
-const contentArray = [
-    { 
-        type: 'prepa', 
-        title: 'Prepa Coppel te ofrece',
-        cards: ['Beca académica para colaboradores, colaboradoras y sus familiares con base en la Decisión 21-A.', 'Contenidos diseñados para jóvenes y adultos que trabajan.', 'Revalidación o equivalencia de materias, en caso de tener estudios inconclusos de Bachillerato.'],
-        imagen: imgPrepa
-    },
-    { 
-        type: 'leg', 
-        title: 'La Licenciatura en Gerenciamiento te ofrece',
-        cards: ['Beca académica para colaboradores, colaboradoras y familiares con base en la Decisión 21-A.', 'Descuento vía nómina en pago de materias e inscripción.', 'Revalidación o equivalencia de materias, en caso de tener estudios inconclusos de Licenciatura afín.'],
-        imagen: imgLEG
-    },
-];
-
-export const SectionOfrece: React.FC<SectionOfreceProps> = ({ type }) => {
+export const SectionOfrece: React.FC<SectionOfreceProps> = ({ content }) => {
     const theme = useTheme();
-    const content = contentArray.find((item) => item.type === type);
-
 
     const cards = () => (
-        content?.cards.map((text, i) => 
+        content?.cards.map((text: string, i: number) => 
             (
                 <Box
                     key={i}

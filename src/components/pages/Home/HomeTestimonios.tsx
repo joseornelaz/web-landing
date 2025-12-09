@@ -76,7 +76,7 @@ export const HomeTestimonio: React.FC = () => {
             {
                 recomendacionesCard()
             }
-            <Box sx={{display: 'flex', flexDirection: 'column', gap: '13px', alignItems: 'center', justifyContent: 'center', mt: 3}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', gap: '13px', alignItems: 'center', justifyContent: 'center', mt: 8}}>
                 <Typography variant="h3" component="h3">Testimonios</Typography>
                 <Typography variant="h1" component="h1" color="primary">Lo que nuestros alumnos dicen</Typography>
             </Box>

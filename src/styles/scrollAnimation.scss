@@ -1,0 +1,157 @@
+/* scrollAnimations.css */
+
+/* Fade In */
+.fade-in {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.animate-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Slide In Left */
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.slide-in-left.animate-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slide In Right */
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.slide-in-right.animate-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slide In Up */
+.slide-in-up {
+  opacity: 0;
+  transform: translateY(80px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.slide-in-up.animate-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scale In */
+.scale-in {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scale-in.animate-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Rotate In */
+.rotate-in {
+  opacity: 0;
+  transform: rotate(-10deg) scale(0.9);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.rotate-in.animate-visible {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* Blur In */
+.blur-in {
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 0.8s ease, filter 0.8s ease;
+}
+
+.blur-in.animate-visible {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* Delays para efectos en secuencia */
+.delay-100 {
+  transition-delay: 0.1s;
+}
+
+.delay-200 {
+  transition-delay: 0.2s;
+}
+
+.delay-300 {
+  transition-delay: 0.3s;
+}
+
+.delay-400 {
+  transition-delay: 0.4s;
+}
+
+.delay-500 {
+  transition-delay: 0.5s;
+}
+
+/* Animaciones de entrada inicial (para hero/main) */
+.hero-fade-in {
+  animation: heroFadeIn 1s ease-out forwards;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-scale-in {
+  animation: heroScaleIn 0.8s ease-out forwards;
+}
+
+@keyframes heroScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hero-slide-up {
+  animation: heroSlideUp 1s ease-out forwards;
+}
+
+@keyframes heroSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efecto de parallax suave al hacer scroll sobre el Main */
+.parallax-main {
+  transition: transform 0.3s ease-out;
+}

@@ -6,21 +6,31 @@ import { Typography } from "../../atoms/Typography/Typography";
 import { FichaTecnica, PlanEstudios } from '../../../assets/icons';
 
 type SectionFichaTecnicaProps = {
-    type: 'prepa' | 'leg';
+    handleVerMas?: () => void;
+    handleDescargar?: () => void;
 }
 
-const FichaArray = [
-    {type: 'prepa', icons: [{icon: <FichaTecnica />}, {icon: <PlanEstudios />}]}
-];
+const icons = [{icon: <FichaTecnica />}, {icon: <PlanEstudios />}];
 
-export const SectionFichaTecnica: React.FC<SectionFichaTecnicaProps> = ({type}) => {
+export const SectionFichaTecnica: React.FC<SectionFichaTecnicaProps> = (props) => {
     const theme = useTheme();
-    const Ficha = FichaArray.find((item) => item.type === type);
     
+    const handleVerMas = () => {
+        if (props.handleVerMas) {
+            return props.handleVerMas();
+        }
+    }
+
+    const handleDescargar = () => {
+        if (props.handleDescargar) {
+            return props.handleDescargar();
+        }
+    }
+
     const buttons = () => (
         <Box sx={{...FlexColumn, gap: '16px'}}>
-            <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}}>Ver más</Button>
-            <Button variant="outlined" sx={{borderColor: '#FFF', color: '#FFF'}}>Descargar</Button>
+            <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}} onClick={handleVerMas}>Ver más</Button>
+            <Button variant="outlined" sx={{borderColor: '#FFF', color: '#FFF'}} onClick={handleDescargar}>Descargar</Button>
         </Box>
     );
 
@@ -40,7 +50,7 @@ export const SectionFichaTecnica: React.FC<SectionFichaTecnicaProps> = ({type}) 
                 <Typography variant="body2" component="span" sxProps={{color: '#FFFFFF'}}>Conoce a detalle tu plan de estudios y datos técnicos de tu programa académico</Typography>
                 <Grid container spacing={6} sx={{width: '100%', mt: 5}}>
                     {
-                        Ficha && Ficha.icons.map((item, i) => (
+                        icons && icons.map((item, i) => (
                             <Grid size={{xs:12, md:6}} key={i}>
                                 <Box sx={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                                     {ficha(item.icon)}

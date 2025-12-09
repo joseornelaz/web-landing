@@ -10,10 +10,11 @@ import { Typography } from "../../atoms/Typography/Typography";
 import { TimelineSteps } from "../TimelineSteps/TimelineSteps";
 
 type SectionProcesoInscripcionProps = {
-    item: {descripcion: string, info: {text: string, value: string}[], steps: any[] }
+    item: { descripcion: string, info: {text: string, value: string}[] };
+    steps: any[];
 };
 
-export const SectionProcesoInscripcion: React.FC<SectionProcesoInscripcionProps> = ({item}) => {
+export const SectionProcesoInscripcion: React.FC<SectionProcesoInscripcionProps> = ({item, steps}) => {
     return(
         <BackgroundContainer>
             <Grid container spacing={4}>
@@ -44,7 +45,7 @@ export const SectionProcesoInscripcion: React.FC<SectionProcesoInscripcionProps>
                     </Box>
                 </Grid>
                 <Grid size={{xs: 12, md: 8}}>
-                    <TimelineSteps steps={item.steps}/>
+                    <TimelineSteps steps={steps}/>
                 </Grid>
             </Grid>
         </BackgroundContainer>

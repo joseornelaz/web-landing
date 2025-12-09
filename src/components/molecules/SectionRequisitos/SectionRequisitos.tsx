@@ -1,5 +1,4 @@
 import { BackgroundContainer } from "../BackgroundContainer/BackgroundContainer";
-import PrepaRequisitos from '../../../assets/prepaRequisitos.png';
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { useMediaQuery, useTheme } from "@mui/material";
@@ -7,14 +6,16 @@ import { TituloPagina } from "../TituloPagina/TituloPagina";
 import { Check } from "../../../assets/icons";
 import { Typography } from "../../atoms/Typography/Typography";
 
-export const SectionRequisitos: React.FC = () => {
+type SectionRequisitosProps = {
+    item: {descripcion: string, imagen: string, requisitos: string[]};
+}
+
+export const SectionRequisitos: React.FC<SectionRequisitosProps> = ({item}) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     
     const puntoFomentar = () => {
-        const puntos = ['Tener una antigüedad mínima de 3 meses como Colaborador Coppel y 1 año de antigüedad para familiares directos.','Acta de nacimiento original.','Certificado de secundaria original.','Certificado Parcial de estudios (en caso de revalidación o equivalencia).','Llenar ficha de preinscripción con asesoramiento del equipo de admisión.','CURP'];
-
-        return puntos.map((item, i) => <Box key={i} sx={{display: 'flex', gap: 2, alignItems: 'center'}}>
+        return item.requisitos.map((item, i) => <Box key={i} sx={{display: 'flex', gap: 2, alignItems: 'center'}}>
             <Box component="img" src={Check} />
             <Typography variant="body1" component="span">{item}</Typography>
         </Box>)
@@ -29,7 +30,7 @@ export const SectionRequisitos: React.FC = () => {
                     >
                         <Box
                             component="img"
-                            src={PrepaRequisitos}
+                            src={item.imagen}
                             sx={[isMobile && { width: '100%' }]}
                         ></Box>
                     </Box>
@@ -38,7 +39,7 @@ export const SectionRequisitos: React.FC = () => {
                     <Box sx={{ maxWidth: 560, display: 'flex', flexFlow: 'column', justifyContent: 'center', height: '-webkit-fill-available' }}>
                         <TituloPagina>Requisitos:</TituloPagina>
                         <Typography variant="body1" component="p" sxProps={{mb: 4}}>
-                            Todo un grupo de personal operativo y académico se encuentra involucrado en Prepa Coppel para ofrecerte estudios de bachillerato de alta calidad académica, flexible y que te ayudará a cursar tus estudios de preparatoria en tus propios tiempos y bajo la disponibilidad e interés que tú mismo decidas dedicarle.
+                            {item.descripcion}
                         </Typography>
                         <Box sx={{display: 'flex', flexDirection: 'column', gap: 4}}>
                             {puntoFomentar()}

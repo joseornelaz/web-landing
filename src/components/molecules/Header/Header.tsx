@@ -4,20 +4,25 @@ import Typography from "@mui/material/Typography";
 import { KeyboardArrowDown } from '@mui/icons-material';
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import { Container, IconButton, Link, useTheme } from "@mui/material";
+import { Container, IconButton, useTheme } from "@mui/material";
 
 import logo from '../../../assets/logo.png';
 
 import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { NivelTypes } from "../../../types/NivelTypes";
 
 export const Header: React.FC = () => {
-    const theme = useTheme();    
+    const theme = useTheme();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleNavigation = (route: string) => {
         navigate(route);
     }
+
+    const isNivelPage = location.pathname.startsWith('/nivel/');
+    const isDiplomadosPage = location.pathname.startsWith('/diplomados');
 
     return(
         <>
@@ -55,12 +60,26 @@ export const Header: React.FC = () => {
                         />
                         <Box>
                             <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2, fontSize: '16px' }}>
-                                <Button color="inherit" onClick={() => handleNavigation('/prepa')}>Inicio</Button>
-                                <Button color="inherit">Prepa Coppel</Button>
-                                <Button color="inherit">Licenciaturas</Button>
-                                <Button color="inherit">Ingenierías</Button>
-                                <Button color="inherit">Posgrados</Button>
-                                <Button color="inherit">Diplomados</Button>
+                                <Button color="inherit" onClick={() => handleNavigation('/')}>Inicio</Button>
+                                {
+                                    (isNivelPage || isDiplomadosPage) 
+                                    ? 
+                                        <>
+                                            <Button color="inherit">Beneficios</Button>
+                                            <Button color="inherit">Ficha Técnica</Button>
+                                            <Button color="inherit">Plan de Estudios</Button>
+                                            <Button color="inherit">Quiero formar parte</Button>
+                                        </>
+                                    :                                    
+                                        <>
+                                            <Button color="inherit" onClick={() => handleNavigation(`/nivel/${NivelTypes.PREPA}`)}>Prepa Coppel</Button>
+                                            <Button color="inherit" onClick={() => handleNavigation(`/nivel/${NivelTypes.LIC}`)}>Licenciaturas</Button>
+                                            <Button color="inherit" onClick={() => handleNavigation(`/nivel/${NivelTypes.ING}`)}>Ingenierías</Button>
+                                            <Button color="inherit" onClick={() => handleNavigation(`/nivel/${NivelTypes.MAESTRIA}`)}>Posgrados</Button>
+                                            <Button color="inherit">Diplomados</Button>
+                                        </>
+                                }
+                                
                             </Box>
                             <IconButton color="inherit" sx={{ display: { md: "none" } }}>
                                 <MenuIcon />
