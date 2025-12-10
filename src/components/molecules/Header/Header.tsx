@@ -50,9 +50,9 @@ export const Header: React.FC = () => {
       
             {/* Navigation Bar */}
 
-            <AppBar position="static" color="primary" elevation={0} sx={{ display: 'flex', justifyContent: 'space-between', minHeight: 101 }} >
+            <AppBar position="static" color="primary" elevation={0} sx={{ display: 'flex', justifyContent: 'center', minHeight: 101 }} >
                 <Container>
-                    <Toolbar disableGutters sx={{display: 'flex', alignItems: 'center', justifyContent: {xs:'space-between', md: 'center'}, gap: '100px' }}>
+                    <Toolbar disableGutters sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '100px' }}>
                         <Box
                             component="img" 
                             src={logo}
