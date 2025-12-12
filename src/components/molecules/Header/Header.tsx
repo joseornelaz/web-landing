@@ -76,7 +76,7 @@ export const Header: React.FC = () => {
                                             <Button color="inherit" onClick={() => handleNavigation(`/nivel/${NivelTypes.LIC}`)}>Licenciaturas</Button>
                                             <Button color="inherit" onClick={() => handleNavigation(`/nivel/${NivelTypes.ING}`)}>Ingenierías</Button>
                                             <Button color="inherit" onClick={() => handleNavigation(`/nivel/${NivelTypes.MAESTRIA}`)}>Posgrados</Button>
-                                            <Button color="inherit">Diplomados</Button>
+                                            <Button color="inherit" onClick={() => handleNavigation(`/diplomado`)}>Diplomados</Button>
                                         </>
                                 }
                                 

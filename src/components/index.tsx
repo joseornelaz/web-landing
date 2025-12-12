@@ -1,2 +1,3 @@
 export { default as Home } from './pages/Home/Index';
 export { default as Nivel } from './pages/Nivel/Index';
+export { default as Diplomado } from './pages/Diplomado/Index';

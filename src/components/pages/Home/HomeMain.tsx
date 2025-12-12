@@ -114,54 +114,8 @@ const HomeMain: React.FC = () => {
                     }
                 </Box>
             </Grid>
-            {/* <Grid size={{ xs: 12, md: 7 }} sx={{ display: 'flex', justifyContent: 'flex-end'}}>
-                <Box sx={{ width: '100%', height: '100%'}}>
-                   <Box 
-                        sx={{
-                            position: 'relative',
-                            width: '100%',
-                            height: '500px'
-                        }}
-                   >
-                        <Box
-                            component="img"
-                            src={home1}
-                            alt=""
-                            sx={{
-                                position: 'absolute',
-                                top: '-15px',
-                                left: '78px'
-                            }}                            
-                        /> 
-                        <Box
-                            component="img"
-                            src={home2}
-                            alt=""
-                            sx={{
-                                position: 'absolute',
-                                top: '40px',
-                                right: '20px',
-                                zIndex: 3
-                            }}
-                        />
-                        <Box
-                            component="img"
-                            src={home3}
-                            alt=""
-                            sx={{
-                                position: 'absolute',
-                                top: '323px',
-                                left: '45px'
-                            }}
-                        />
-                   </Box>
-                   
-                </Box>  
-            </Grid> */}
           </Grid>
         </Box>
-        
-
     );
 }
 

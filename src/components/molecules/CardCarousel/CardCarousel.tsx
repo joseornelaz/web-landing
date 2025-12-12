@@ -56,7 +56,7 @@ const CustomPrevArrow = (props: any) => {
 };
 
 type CardCarouselProps = {
-    items: any[];
+    items: { Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>, text: string, name?: string, grade?: string }[];
     type: 'testimonios' | 'prepa';
 }
 

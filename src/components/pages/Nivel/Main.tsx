@@ -14,6 +14,7 @@ import Maestria from '../../../assets/maestria/maestria01.png';
 import { SectionMain } from "../../molecules/SectionMain/SectionMain";
 import type { NivelInterface } from '../../../types/NivelInterface';
 import { NivelTypes } from '../../../types/NivelTypes';
+import Box from '@mui/material/Box';
 
 const NivelArray = [
     {
@@ -78,6 +79,14 @@ export const Main: React.FC<NivelInterface> = ({type}) => {
     },[type]);
 
     return(
-        info && <SectionMain item={info} />
+        info && 
+            <Box 
+                sx={{
+                    minHeight: { xs: 'auto', md: 'calc(100vh - 200px)' },
+                    mt: { xs: 0, md: '30px' },
+                }}
+            >
+                <SectionMain item={info} />
+            </Box>
     )
 }

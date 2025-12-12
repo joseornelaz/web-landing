@@ -4,10 +4,11 @@ import { Typography } from "../../atoms/Typography/Typography";
 import CardCarousel from "../CardCarousel/CardCarousel";
 
 type SectionLograrasProps = {
-    item: { title: string, itemsCarousel: any[]}
+    item: { title: string, itemsCarousel: { Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>, text: string }[]};
+    carouselType?: 'prepa' | 'testimonios';
 };
 
-export const SectionLograras: React.FC<SectionLograrasProps> = ({item}) => {
+export const SectionLograras: React.FC<SectionLograrasProps> = ({item, carouselType = 'prepa'}) => {
     return(
         <Box
             sx={{
@@ -21,7 +22,7 @@ export const SectionLograras: React.FC<SectionLograrasProps> = ({item}) => {
             <Typography component="h3" variant="h3" sxProps={{ textAlign: 'center'}}>
                 {item.title}
             </Typography>
-            <CardCarousel items={item.itemsCarousel} type="prepa" />
+            <CardCarousel items={item.itemsCarousel} type={carouselType} />
         </Box>
     );
 }

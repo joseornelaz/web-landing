@@ -16,6 +16,10 @@ export const AppRouting = createHashRouter([
                 path: AppRoutingPaths.NIVEL,
                 Component: Component.Nivel
             },
+            {
+                path: AppRoutingPaths.DIPLOMADO,
+                Component: Component.Diplomado
+            },
         ]
     }
 ])

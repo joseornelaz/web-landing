@@ -1,5 +1,4 @@
 import React from "react"
-import HomeMain from "./HomeMain"
 import { HomeNumeros } from "./HomeNumeros";
 import Box from "@mui/material/Box";
 import { HomeBienvenida } from "./HomeBienvenida";
@@ -9,6 +8,7 @@ import { HomeAcademiaGlobal } from "./HomeAcademiaGlobal";
 import { HomeAsesoria } from "./HomeAsesoria";
 import { useScrollAnimation } from "../../../hooks/useScrollAnimation";
 import "../../../styles/scrollAnimation.scss";
+import { Main } from "./Main";
 
 const Home: React.FC = () => {
     const numerosRef = useScrollAnimation({ triggerOnce: true });
@@ -22,9 +22,13 @@ const Home: React.FC = () => {
         <Box
             sx={{display: 'flex', flexDirection: 'column', gap: '24px'}}
         >
-            <Box sx={{height: { xs: 'auto', md: 'calc(100vh - 200px)'}, mt: { xs: 0, md: '30px' }}}>
+            {/* <Box sx={{
+                minHeight: { xs: 'auto', md: 'calc(100vh - 200px)' },
+                mt: { xs: 0, md: '30px' }}}
+            >
                 <HomeMain />
-            </Box>
+            </Box> */}
+            <Main />
             <Box component="div" ref={numerosRef} className="slide-in-left">
                 <HomeNumeros />
             </Box>
