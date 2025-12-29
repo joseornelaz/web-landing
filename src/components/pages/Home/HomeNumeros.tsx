@@ -8,34 +8,12 @@ export const HomeNumeros: React.FC = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     
     const metricardArray = [
-        { title: 'Alumnos activos en nuestros Programas Académicos', value: '+6,739'},
-        { title: 'Generaciones', value: '98'},
-        { title: 'Egresados Históricos', value: '+7,155'},
+        { title: 'Alumnos activos en nuestros Programas Académicos', value: '6739', prefix: '+'},
+        { title: 'Generaciones', value: '98', prefix: undefined},
+        { title: 'Egresados Históricos', value: '7155', prefix: '+'},
     ];
 
     return(
-        // <Box
-        //     sx={{
-        //         display: 'flex',
-        //         alignItems: 'center',
-        //         justifyItems: 'center',
-        //         flexDirection: 'column',
-        //         gap: '58px',
-        //         width: '100%'
-        //     }}
-        // >
-        //     <Typography component="h3" variant="h3" sxProps={{ textAlign: 'center'}}>Coppel Universidad Corporativa en números</Typography>
-        //     <Box
-        //         sx={[
-        //             { display: 'flex', gap: '33px', flexWrap: 'wrap', justifyContent: 'center'},
-        //             isMobile && {  }
-        //         ]}
-        //     >
-        //         {
-        //             metricardArray.map((item, i) => <MetricCard key={i} title={item.title} value={item.value} />)
-        //         }
-        //     </Box>
-        // </Box>
         <Box
             sx={{
                 display: 'flex',
@@ -84,7 +62,12 @@ export const HomeNumeros: React.FC = () => {
                 ]}
             >
             {
-                metricardArray.map((item, i) => <MetricCard key={i} title={item.title} value={item.value} />)
+                metricardArray.map((item, i) => <MetricCard 
+                    key={i} 
+                    title={item.title} 
+                    value={item.value} 
+                    prefix={item.prefix} 
+                />)
             }
             </Box>
         </Box>

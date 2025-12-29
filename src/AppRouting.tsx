@@ -20,6 +20,14 @@ export const AppRouting = createHashRouter([
                 path: AppRoutingPaths.DIPLOMADO,
                 Component: Component.Diplomado
             },
+            {
+                path: AppRoutingPaths.INSCRIBIRME,
+                Component: Component.Inscribirme
+            },
+            {
+                path: AppRoutingPaths.PREGUNTAS,
+                Component: Component.Preguntas
+            },
         ]
     }
 ])

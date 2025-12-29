@@ -26,7 +26,7 @@ export const Main: React.FC = () => {
                     mt: { xs: 0, md: '30px' },
                 }}
             >
-                <SectionMain item={info} isHome={true} />
+                <SectionMain item={info} isHome={true} type='home' />
             </Box>
     )
 }

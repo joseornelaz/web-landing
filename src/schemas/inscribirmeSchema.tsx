@@ -3,13 +3,14 @@ import { z } from "zod";
 const isValidPhone = (val: string) => val.replace(/\D/g, "").length === 10;
 const messageTelefono = "Deben ser 10 dígitos";
 
-export const asesoriaSchema = (programas: number[]) => 
+export const inscribirmeSchema = (programas: number[]) => 
     z.object({
         nombre: z.string().nonempty("Nombre Completo es requerido"),
-        matricula: z.string().nonempty("Numero de colaborador/a es requerido"),
+        apellido: z.string().nonempty("Apellidos es requerido"),
+        // matricula: z.string().nonempty("Numero de colaborador/a es requerido"),
         correo: z.email().nonempty("Correo Eléctronico es requerido"),
         // correo: z.string().nonempty("Email es requerido").email("Debe ser un email válido"),
-        telefono: z.string().nonempty("Número Télefonico es requerido").refine(isValidPhone, {
+        telefono: z.string().nonempty("Teléfono Celular es requerido").refine(isValidPhone, {
             message: messageTelefono,
         }),
         id_programa: z
@@ -18,6 +19,7 @@ export const asesoriaSchema = (programas: number[]) =>
             .refine((id) => programas.includes(id), {
                 message: "Programa de interes es requerido",
             }),
+        mensaje: z.string(),
 });
 
-export type AsesoriaFormData = z.infer<ReturnType<typeof asesoriaSchema>>;
+export type InscribirmeFormData = z.infer<ReturnType<typeof inscribirmeSchema>>;

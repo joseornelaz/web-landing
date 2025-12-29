@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import { Typography } from "../../atoms/Typography/Typography";
 import Grid from "@mui/material/Grid";
 import { Controller, useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
-import { asesoriaSchema, type AsesoriaFormData } from "../../../schemas/asesoriaSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
+import Button from "@mui/material/Button";
+import { inscribirmeSchema, type InscribirmeFormData } from "../../../schemas/inscribirmeSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import MenuItem from "@mui/material/MenuItem";
-import { Button, useTheme } from "@mui/material";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const programas = [
   {id_programa: 1, value: 'Licenciatura'},
@@ -19,60 +18,36 @@ const programas = [
   {id_programa: 1, value: 'Doctorado'},
 ];
 
-export const HomeAsesoria: React.FC = () => {
+export const FormInscribirme: React.FC = () => {
     const theme = useTheme();
-    const [captchaValido, setCaptchaValido] = useState(false);
-    const [captcha, setCaptcha] = useState('');
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const { control, formState: { errors } } = useForm<AsesoriaFormData>({
-        resolver: zodResolver(asesoriaSchema(programas.map(p => p.id_programa)) ?? [0]),
+    const { control, formState: { errors } } = useForm<InscribirmeFormData>({
+        resolver: zodResolver(inscribirmeSchema(programas.map(p => p.id_programa)) ?? [0]),
         defaultValues: {
-          nombre: '',
-          matricula: '',
-          correo: '',
-          telefono: '',
-          id_programa: 0
+            nombre: '',
+            apellido: '',
+            correo: '',
+            telefono: '',
+            id_programa: 0
         },
     });
-
-    const onCaptchaChange = () => {
-        setCaptchaValido(true);
-    };
-
-    useEffect(() => {
-      setTimeout(() => setCaptcha(import.meta.env.VITE_APP_CAPTCHA), 200);
-    },[]);
 
     return(
         <Box 
           sx={{ 
             width: '100%', 
-            px: {xs: 0, md: '115px'}
+            pt: {xs: '30px', md: '60px'}
           }}
         >
-          <Box
-            sx={{
-              maxWidth: "100%",
-              borderRadius: "24px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              background: theme.palette.secondary.main,
-              minHeight: '550px',
-              boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-              // alignItems: { xs: "center", md: "flex-start" },
-              // p: { xs: 3, md: 6 },
-              // minHeight: { xs: "auto", sm: "30%", md: 482, lg: 585, xl: 585 },
-              // position: "relative",
-
-              px: {xs: '24px', md: '100px'},
-              pt: '70px',
-              pb: '100px'
-            }}
-          >
-            <Typography component="h1" variant="h1" color="primary" sxProps={{mb: '33px'}}>Solicita asesoría</Typography>
-            <Typography component="span" variant="body2" sxProps={{mb: '46px'}}>Recibe información detallada y seguimiento personalizado en tu proceso de inscripción, compártenos los siguientes datos y un asesor/a te contactará.</Typography>
-            <Grid container spacing={4} rowSpacing={1}>
+            <Typography component="h2" variant="h2" color="primary" 
+                sxProps={[
+                    { mb: '33px', fontSize: { xs: '2rem', md: '32px' }},
+                    isMobile && {textAlign: 'center'}
+                ]}
+            >¡Quiero empezar mi transformación!</Typography>
+            <Typography component="span" variant="body2" sxProps={{mb: '46px'}}>Nuestros asesores te contactarán para resolver todas tus dudas y acompañarte en tu proceso de inscripción a cualquiera de nuestros Programas Académicos.</Typography>
+            <Grid container spacing={4} rowSpacing={1} sx={{mt: '36px'}}>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Controller
                     name="nombre"
@@ -92,16 +67,16 @@ export const HomeAsesoria: React.FC = () => {
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Controller
-                    name="matricula"
+                    name="apellido"
                     control={control}
                     render={({ field }) => (
                         <TextField
                             {...field}
-                            id="matricula"
-                            label="Número de colaborador/a"
-                            placeholder="Ingresa Número de colaborador/a"
-                            error={!!errors.matricula}
-                            helperText={errors.matricula?.message}
+                            id="apellido"
+                            label="Apellidos"
+                            placeholder="Ingresa tus apellidos"
+                            error={!!errors.apellido}
+                            helperText={errors.apellido?.message}
                             fullWidth
                         />
                     )}
@@ -167,23 +142,48 @@ export const HomeAsesoria: React.FC = () => {
                   )}
                 />
               </Grid>
+              <Grid size={{ xs: 12, md: 12 }}>
+                <Controller
+                    name="mensaje"
+                    control={control}
+                    render={({ field }) => (
+                      <TextField
+                            {...field}
+                            id="mensaje"
+                            label="Mensaje"
+                            placeholder="Ingresar Mensaje"
+                            error={!!errors.mensaje}
+                            helperText={errors.mensaje?.message}
+                            fullWidth
+                            multiline
+                            rows={4}
+                            sx={{mt: 2}}
+                        />
+                    )}
+                />
+              </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Box
-                  sx={{height: '70px', width: '100%', mt: 2}}
-                >
-                  {
-                    captcha && <ReCAPTCHA
-                      sitekey={captcha}
-                      onChange={onCaptchaChange}
-                    />
-                  }
-                </Box>
+                  sx={{height: '70px', width: '100%', border: '1px solid', mt: 1}}
+                />
               </Grid>
               <Grid size={{ xs: 12, md: 12 }}>
-                <Button fullWidth color="primary" variant="contained" sx={{mt: 2}}>ENVIAR</Button>
+                <Box
+                    sx={[
+                        {width: '100%', textAlign: 'right'},
+                        isMobile && { pt: 2 }
+                    ]}
+                >
+                    {
+                        isMobile 
+                        ? 
+                            <Button color="primary" fullWidth variant="contained">Enviar Mensaje</Button>
+                        :
+                            <Button color="primary" variant="outlined">Enviar Mensaje</Button>
+                    }
+                </Box>
               </Grid>
             </Grid>
-          </Box>
         </Box>
-    )
+    );
 }

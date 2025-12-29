@@ -8,18 +8,25 @@ import { DescripcionPagina } from "../DescripcionPagina/DescripcionPagina";
 import { DuracionCard } from "../DuracionCard/DuracionCard";
 import { Typography } from "../../atoms/Typography/Typography";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 type SectionMainProps = {
     item: {logoPrograma: any, imagenPrograma: any, descripcion: string, duracion: {text: string, value: string}[]};
     hasLogoText?: boolean;
     isHome?: boolean;
+    type: string;
 }
 
-export const SectionMain: React.FC<SectionMainProps> = ({ item, hasLogoText = false, isHome = false }) => {
+export const SectionMain: React.FC<SectionMainProps> = ({ item, hasLogoText = false, isHome = false, type }) => {
     const theme = useTheme();
+    const navigate = useNavigate();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const betweenDevice = useMediaQuery(theme.breakpoints.between('sm', 'md'));
     
+    const handleInscribirme = () => {
+        navigate('/inscribirme/' + type);
+    }
+
     return(
         <BackgroundContainer>
             <Grid container spacing={4}>
@@ -73,7 +80,7 @@ export const SectionMain: React.FC<SectionMainProps> = ({ item, hasLogoText = fa
                     {
                         !isHome 
                             ?
-                        <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}}>Quiero Inscribirme</Button>
+                        <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}} onClick={handleInscribirme}>Quiero Inscribirme</Button>
                             :
                         <Box sx={{ mt: 4, display: "flex", gap: 2 }}>
                             <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}}>Programas Académicos</Button>

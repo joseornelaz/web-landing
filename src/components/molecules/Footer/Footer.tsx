@@ -9,13 +9,16 @@ import {
 } from "@mui/material";
 
 import logo from '../../../assets/logo.png';
+import { useLocation } from "react-router-dom";
 
 export const Footer: React.FC = () => {
+  const location = useLocation();
+  const theme = useTheme();
 
-    const theme = useTheme();
+  const isInscribirmePage = location.pathname.startsWith('/inscribirme/');
 
   return (
-    <Box component="footer" sx={{ mt: 8 }}>
+    <Box component="footer" sx={{ mt: !isInscribirmePage ? 8 : 0 }}>
       <Box 
         sx={{
           bgcolor: theme.palette.secondary.main,

@@ -23,7 +23,8 @@ const theme = createTheme({
       700: '#3d4c67',
       800: '#364257',
       900: '#30394a',
-    }
+    },
+    success: {main: '#25D366'}
   },
   typography: {
     htmlFontSize: 16,

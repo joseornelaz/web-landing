@@ -39,7 +39,7 @@ const Nivel: React.FC = () => {
             <Box component="div" ref={lograrasRef} className="fade-in">
                 <Lograras type={type} />
             </Box>
-            <Box component="div" ref={fomentarRef} className="slide-in-left">
+            <Box component="div" ref={fomentarRef} className="slide-in-left" id="beneficios">
                 <Fomentar type={type} />
             </Box>
             <Box component="div" ref={ofreceRef} className="slide-in-right">
@@ -48,7 +48,7 @@ const Nivel: React.FC = () => {
             <Box sx={{
                 pt: {xs: '24px', md: '80px'},
                 pb: {xs: '24px', md: '40px'}
-            }}>
+            }} id="ficha-tecnica">
                 <Box component="div" ref={fichaRef} className="scale-in">
                     <FichaTecnica />
                 </Box>
@@ -60,7 +60,7 @@ const Nivel: React.FC = () => {
             <Box component="div" ref={dudaRef} className="fade-in delay-200">
                 <SectionAlgunaDuda />
             </Box>
-            <Box sx={{pt: {xs: '24px', md: '60px'}}}>
+            <Box sx={{pt: {xs: '24px', md: '60px'}}} id="requisitos">
                 <Box component="div" ref={requisitosRef} className="slide-in-up">
                     <Requisitos type={type} />
                 </Box>

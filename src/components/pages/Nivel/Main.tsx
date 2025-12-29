@@ -86,7 +86,7 @@ export const Main: React.FC<NivelInterface> = ({type}) => {
                     mt: { xs: 0, md: '30px' },
                 }}
             >
-                <SectionMain item={info} />
+                <SectionMain item={info} type={type} />
             </Box>
     )
 }

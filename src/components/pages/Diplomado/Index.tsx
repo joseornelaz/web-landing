@@ -40,17 +40,17 @@ const Diplomado: React.FC = () => {
             <Box component="div" ref={lograrasRef} className="fade-in">
                 <Certificaciones />
             </Box>
-            <Box component="div" ref={fomentarRef} className="slide-in-left">
+            <Box component="div" ref={fomentarRef} className="slide-in-left" id="beneficios">
                 <Lograras />
             </Box>
-            <Box component="div" ref={ofreceRef} className="slide-in-right">
+            <Box component="div" ref={ofreceRef} className="slide-in-right" id="capaz">
                 <Capaz />
             </Box>
             <Box sx={{
                 pt: {xs: '24px', md: '80px'},
                 pb: {xs: '24px', md: '100px'}
             }}>
-                <Box component="div" ref={timelineRef} className="slide-in-up">
+                <Box component="div" ref={timelineRef} className="slide-in-up" id="metodologia">
                     <Metodologia />
                 </Box>
             </Box>

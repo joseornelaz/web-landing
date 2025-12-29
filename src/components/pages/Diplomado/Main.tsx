@@ -21,6 +21,6 @@ const NivelArray =
 
 export const Main: React.FC = () => {
     return(
-        <SectionMain item={NivelArray.values} hasLogoText={true} />
+        <SectionMain item={NivelArray.values} hasLogoText={true} type='diplomado' />
     )
 }
