@@ -5,10 +5,15 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material";
 
 import './SectionAlgunaDuda.scss';
+import { useNavigate } from "react-router-dom";
+import { AppRoutingPaths } from "@constants";
 
 export const SectionAlgunaDuda: React.FC = () => {
     const theme = useTheme();    
-    
+    const navigate = useNavigate();
+
+    const handlePreguntas = () => navigate(AppRoutingPaths.PREGUNTAS);
+
     return(
         <Box className="contenedor-azul">
           <Box className="contenido-superior">
@@ -55,7 +60,7 @@ export const SectionAlgunaDuda: React.FC = () => {
                 flexWrap: "wrap",
               }}
             >
-              <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}}>Preguntas Frecuentes</Button>
+              <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}} onClick={handlePreguntas}>Preguntas Frecuentes</Button>
               <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}}>Contacta a un Asesor/a</Button>
             </Box>
           </Box>

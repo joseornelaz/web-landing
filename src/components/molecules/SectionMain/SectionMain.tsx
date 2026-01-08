@@ -14,7 +14,7 @@ type SectionMainProps = {
     item: {logoPrograma: any, imagenPrograma: any, descripcion: string, duracion: {text: string, value: string}[]};
     hasLogoText?: boolean;
     isHome?: boolean;
-    type: string;
+    type: string | undefined;
 }
 
 export const SectionMain: React.FC<SectionMainProps> = ({ item, hasLogoText = false, isHome = false, type }) => {

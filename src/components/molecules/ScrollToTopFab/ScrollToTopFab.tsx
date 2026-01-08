@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Fab from '@mui/material/Fab';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Zoom from '@mui/material/Zoom';
 import { ArrowUp } from '../../../assets/icons';
 

@@ -21,7 +21,7 @@ const programas = [
 
 export const HomeAsesoria: React.FC = () => {
     const theme = useTheme();
-    const [captchaValido, setCaptchaValido] = useState(false);
+    const [_captchaValido, setCaptchaValido] = useState(false);
     const [captcha, setCaptcha] = useState('');
 
     const { control, formState: { errors } } = useForm<AsesoriaFormData>({

@@ -40,6 +40,8 @@ export const Header: React.FC = () => {
             
             // Cambiar a fixed cuando el scroll supere los 120px
             if(!isMobile) {
+                if(location.pathname.startsWith('/inscribirme')) return;
+
                 if (scrollPosition > 120) {
                     setIsFixed(true);
                 } else {

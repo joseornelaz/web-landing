@@ -100,9 +100,8 @@ export const AccordionPreguntas: React.FC<AccordionPreguntaProps> = ({ pregunta,
                             color: '#666',
                             lineHeight: 1.6,
                         }}
-                    >
-                        {respuesta}
-                    </Typography>
+                        dangerouslySetInnerHTML={{ __html: respuesta }}
+                    />
                 </Box>
             </Collapse>
         </Box>
