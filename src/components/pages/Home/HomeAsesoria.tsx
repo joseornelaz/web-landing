@@ -59,7 +59,7 @@ export const HomeAsesoria: React.FC = () => {
         if(response.success) {
           showNotification(`La información se envió satisfactoriamente`, "success");
         }else{
-          showNotification(`Hubo un error al enviar el formulario, intentar de nuevo`, "success");
+          showNotification(`Hubo un error al enviar el formulario, intentar de nuevo`, "error");
         }
         setLoading(false);
         recaptchaRef.current?.reset();
