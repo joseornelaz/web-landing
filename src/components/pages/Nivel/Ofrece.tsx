@@ -51,6 +51,6 @@ export const Ofrece: React.FC<NivelInterface> = ({type}) => {
     },[type]);
 
     return(
-        info && <SectionOfrece content={info} />
+        info && <SectionOfrece content={info} type={type} />
     );
 }

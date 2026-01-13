@@ -9,12 +9,13 @@ import { Container, IconButton, useMediaQuery, useTheme } from "@mui/material";
 import logo from '../../../assets/logo.png';
 
 import MenuIcon from "@mui/icons-material/Menu";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { NivelTypes } from "../../../types/NivelTypes";
 import { useEffect, useState } from "react";
 
 export const Header: React.FC = () => {
-    const theme = useTheme();    
+    const theme = useTheme();
+    const { type } = useParams<{ type: string }>();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const navigate = useNavigate();
     const location = useLocation();
@@ -100,7 +101,7 @@ export const Header: React.FC = () => {
                                             <Button color="inherit" onClick={() => scrollToSection('beneficios')}>Beneficios</Button>
                                             <Button color="inherit" onClick={() => scrollToSection('ficha-tecnica')}>Ficha Técnica</Button>
                                             <Button color="inherit" onClick={() => scrollToSection('requisitos')}>Requisitos</Button>
-                                            <Button color="inherit" onClick={() => scrollToSection('quiero-formar-parte')}>Quiero formar parte</Button>
+                                            <Button color="inherit" onClick={() => handleNavigation('/inscribirme/' + type)}>Quiero formar parte</Button>
                                         </>
                                     :                                    
                                         <>

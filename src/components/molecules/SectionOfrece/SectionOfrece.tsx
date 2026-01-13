@@ -7,13 +7,20 @@ import { Typography } from "../../atoms/Typography/Typography";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { TituloPagina } from "../TituloPagina/TituloPagina";
 import { FlexColumn, FlexRow } from "../../../styles/styles";
+import { useNavigate } from "react-router-dom";
 
 type SectionOfreceProps = {
     content: { title: string; cards: string[]; imagen: any; };
+    type: string | undefined;
 }
 
-export const SectionOfrece: React.FC<SectionOfreceProps> = ({ content }) => {
+export const SectionOfrece: React.FC<SectionOfreceProps> = ({ content, type }) => {
     const theme = useTheme();
+    const navigate = useNavigate();
+
+    const handleInscribirme = () => {
+        navigate('/inscribirme/' + type);
+    }
 
     const cards = () => (
         content?.cards.map((text: string, i: number) => 
@@ -52,7 +59,7 @@ export const SectionOfrece: React.FC<SectionOfreceProps> = ({ content }) => {
                 <Box sx={{...FlexColumn}}>
                     <Box component="img" src={content?.imagen} />
                     <Box sx={{...FlexRow, gap: '10px'}}>
-                        <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}}>Estoy Interesado/a</Button>
+                        <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}} onClick={handleInscribirme}>Estoy Interesado/a</Button>
                         <Button variant="outlined">Sesiones Informativas</Button>
                     </Box>
                 </Box>
