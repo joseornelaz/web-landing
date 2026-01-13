@@ -5,14 +5,13 @@ const messageTelefono = "Deben ser 10 dígitos";
 
 export const asesoriaSchema = (programas: number[]) => 
     z.object({
-        nombre: z.string().nonempty("Nombre Completo es requerido"),
-        matricula: z.string().nonempty("Numero de colaborador/a es requerido"),
-        correo: z.email().nonempty("Correo Eléctronico es requerido"),
-        // correo: z.string().nonempty("Email es requerido").email("Debe ser un email válido"),
-        telefono: z.string().nonempty("Número Télefonico es requerido").refine(isValidPhone, {
+        nombreContacto: z.string().nonempty("Nombre Completo es requerido"),
+        numEmpleadoContacto: z.string().nonempty("Numero de colaborador/a es requerido"),
+        emailContacto: z.email({ message: "Debe ser un email válido" }).nonempty("Correo Eléctronico es requerido"),
+        numContacto: z.string().nonempty("Número Télefonico es requerido").refine(isValidPhone, {
             message: messageTelefono,
         }),
-        id_programa: z
+        pragramaContacto: z
             .number()
             .min(1, { message: "Programa de interes es requerido" })
             .refine((id) => programas.includes(id), {

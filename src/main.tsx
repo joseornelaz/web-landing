@@ -7,6 +7,8 @@ import theme from "./theme/theme.tsx";
 
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
 import { RouterProvider } from 'react-router-dom'
+import { QueryProvider } from './provider/QueryProvider.tsx';
+import { NotificationProvider } from './provider/NotificationProvider.tsx';
 
 
 export function AppWrapper() {
@@ -14,12 +16,16 @@ export function AppWrapper() {
   // const theme = 
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <StyledEngineProvider injectFirst>
-        <RouterProvider router={router} />
-      </StyledEngineProvider>
-    </ThemeProvider>
+    <QueryProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <StyledEngineProvider injectFirst>
+          <NotificationProvider>
+            <RouterProvider router={router} />
+          </NotificationProvider>
+        </StyledEngineProvider>
+      </ThemeProvider>
+    </QueryProvider>
   );
 }
 

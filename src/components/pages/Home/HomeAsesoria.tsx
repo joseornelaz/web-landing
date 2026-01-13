@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import { Typography } from "../../atoms/Typography/Typography";
 import Grid from "@mui/material/Grid";
@@ -12,6 +12,10 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { Button, useTheme } from "@mui/material";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useMutation } from "@tanstack/react-query";
+import { useAsesoria } from "../../../services/AsesoriaService";
+import { TextMaskCustom } from "../../molecules/TextMask/TextMask";
+import { useNotification } from "../../../provider/NotificationProvider";
 
 const programas = [
   {id_programa: 1, value: 'Licenciatura'},
@@ -21,18 +25,52 @@ const programas = [
 
 export const HomeAsesoria: React.FC = () => {
     const theme = useTheme();
-    const [_captchaValido, setCaptchaValido] = useState(false);
+    const { showNotification } = useNotification();
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+    const [captchaValido, setCaptchaValido] = useState(false);
     const [captcha, setCaptcha] = useState('');
+    const [loading, setLoading] = React.useState(false);
 
-    const { control, formState: { errors } } = useForm<AsesoriaFormData>({
+    const { control, handleSubmit, formState: { errors } } = useForm<AsesoriaFormData>({
         resolver: zodResolver(asesoriaSchema(programas.map(p => p.id_programa)) ?? [0]),
         defaultValues: {
-          nombre: '',
-          matricula: '',
-          correo: '',
-          telefono: '',
-          id_programa: 0
+          nombreContacto: '',
+          numEmpleadoContacto: '',
+          emailContacto: '',
+          numContacto: '',
+          pragramaContacto: 0
         },
+    });
+
+    const onSubmit = async (data: AsesoriaFormData) => {
+      if(captchaValido) {
+        setLoading(true);        
+        // console.log(recaptchaRef.current?.getValue());
+        createMutation.mutate(data);
+      }else{
+        showNotification("Por favor de completar CAPTCHA", "warning");
+      }
+    };
+  
+    const createMutation = useMutation({
+      mutationFn: useAsesoria,
+      onSuccess: async (response) => {
+        console.log(response);
+        if(response.success) {
+          showNotification(`La información se envió satisfactoriamente`, "success");
+        }else{
+          showNotification(`Hubo un error al enviar el formulario, intentar de nuevo`, "success");
+        }
+        setLoading(false);
+        recaptchaRef.current?.reset();
+      },
+      onError: (error) => {
+        showNotification(`Error al enviar: ${error.message}`, "error");
+        setLoading(false);
+      },
+      onSettled: () => {
+        console.log('La mutación ha finalizado');
+      }
     });
 
     const onCaptchaChange = () => {
@@ -75,7 +113,7 @@ export const HomeAsesoria: React.FC = () => {
             <Grid container spacing={4} rowSpacing={1}>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Controller
-                    name="nombre"
+                    name="nombreContacto"
                     control={control}
                     render={({ field }) => (
                         <TextField
@@ -83,8 +121,8 @@ export const HomeAsesoria: React.FC = () => {
                             id="nombre"
                             label="Nombre completo"
                             placeholder="Ingresa tu nombre completo"
-                            error={!!errors.nombre}
-                            helperText={errors.nombre?.message}
+                            error={!!errors.nombreContacto}
+                            helperText={errors.nombreContacto?.message}
                             fullWidth
                         />
                     )}
@@ -92,7 +130,7 @@ export const HomeAsesoria: React.FC = () => {
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Controller
-                    name="matricula"
+                    name="numEmpleadoContacto"
                     control={control}
                     render={({ field }) => (
                         <TextField
@@ -100,8 +138,8 @@ export const HomeAsesoria: React.FC = () => {
                             id="matricula"
                             label="Número de colaborador/a"
                             placeholder="Ingresa Número de colaborador/a"
-                            error={!!errors.matricula}
-                            helperText={errors.matricula?.message}
+                            error={!!errors.numEmpleadoContacto}
+                            helperText={errors.numEmpleadoContacto?.message}
                             fullWidth
                         />
                     )}
@@ -109,7 +147,7 @@ export const HomeAsesoria: React.FC = () => {
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Controller
-                    name="correo"
+                    name="emailContacto"
                     control={control}
                     render={({ field }) => (
                         <TextField
@@ -117,8 +155,8 @@ export const HomeAsesoria: React.FC = () => {
                             id="correo"
                             label="Correo Eléctronico"
                             placeholder="Ingresar Correo Eléctronico"
-                            error={!!errors.correo}
-                            helperText={errors.correo?.message}
+                            error={!!errors.emailContacto}
+                            helperText={errors.emailContacto?.message}
                             fullWidth
                         />
                     )}
@@ -126,7 +164,7 @@ export const HomeAsesoria: React.FC = () => {
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Controller
-                    name="telefono"
+                    name="numContacto"
                     control={control}
                     render={({ field }) => (
                       <TextField
@@ -134,19 +172,25 @@ export const HomeAsesoria: React.FC = () => {
                             id="telefono"
                             label="Número Télefónico"
                             placeholder="Ingresar Número Télefónico"
-                            error={!!errors.telefono}
-                            helperText={errors.telefono?.message}
+                            inputMode="numeric"
+                            error={!!errors.numContacto}
+                            helperText={errors.numContacto?.message}
                             fullWidth
+                            slotProps={{
+                              input: {
+                                inputComponent: TextMaskCustom as any,
+                              },
+                            }}
                         />
                     )}
-                />
+                />                
               </Grid>
               <Grid size={{ xs: 12, md: 12 }}>
                 <Controller
-                  name="id_programa"
+                  name="pragramaContacto"
                   control={control}
                   render={({ field }) => (
-                      <FormControl fullWidth error={!!errors.id_programa}>
+                      <FormControl fullWidth error={!!errors.pragramaContacto}>
                           <InputLabel id="asunto-label">Selecciona un programa de interés</InputLabel>
                           <Select
                               labelId="asunto-label"
@@ -173,6 +217,7 @@ export const HomeAsesoria: React.FC = () => {
                 >
                   {
                     captcha && <ReCAPTCHA
+                      ref={recaptchaRef}
                       sitekey={captcha}
                       onChange={onCaptchaChange}
                     />
@@ -180,7 +225,15 @@ export const HomeAsesoria: React.FC = () => {
                 </Box>
               </Grid>
               <Grid size={{ xs: 12, md: 12 }}>
-                <Button fullWidth color="primary" variant="contained" sx={{mt: 2}}>ENVIAR</Button>
+                <Button 
+                  fullWidth 
+                  color="primary" 
+                  variant="contained" 
+                  sx={{mt: 2}}
+                  onClick={handleSubmit(onSubmit)}
+                  loading={loading}
+                  loadingPosition="end"
+                >ENVIAR</Button>
               </Grid>
             </Grid>
           </Box>
