@@ -103,7 +103,7 @@ export const SectionMain: React.FC<SectionMainProps> = ({ item, hasLogoText = fa
                                     textAlign: { xs: 'center', md: 'right'}
                                 }}
                             >
-                                <Box component="img" src={item.imagenPrograma} sx={{width: {xs: '100%'}}} />
+                                <Box component="img" src={item.imagenPrograma} sx={{width: {xs: type === 'diplomado' ? '90%' : '100%'}}} />
                             </Box>
                         :
                          <Box 

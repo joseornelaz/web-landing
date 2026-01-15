@@ -9,13 +9,36 @@ import {
 } from "@mui/material";
 
 import logo from '../../../assets/logo.png';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { NivelTypes } from "../../../types/NivelTypes";
 
 export const Footer: React.FC = () => {
   const location = useLocation();
   const theme = useTheme();
+  const navigate = useNavigate();
+
+  const { type } = useParams<{ type: string }>();
 
   const isInscribirmePage = location.pathname.startsWith('/inscribirme/');
+
+  const links = [
+    { label: "Avisos Importantes", path: 'https://programasacademicosuc.com/Avisosimportantes.php', external: true },
+    { label: "Prepa Coppel", path: `/nivel/${NivelTypes.PREPA}`, external: false },
+    { label: "Licenciatura en Gerenciamiento", path: `/nivel/${NivelTypes.LIC}`, external: false },
+    { label: "Ingeniería en Desarrollo de Software", path: `/nivel/${NivelTypes.ING}`, external: false },
+    { label: "Maestría en Dirección de Negocios", path: `/nivel/${NivelTypes.MAESTRIA}`, external: false },
+  ];
+
+  const handleNavigation = (route: string) => {
+    navigate(route);
+  }
+
+  const goToExternal = (path: string) => window.open(path, '_blank');
+
+  const handleInscribirme = () => {
+    const params = !type ? '' : type;
+    navigate('/inscribirme/' + params);
+  }
 
   return (
     <Box component="footer" sx={{ mt: !isInscribirmePage ? 8 : 0 }}>
@@ -65,20 +88,15 @@ export const Footer: React.FC = () => {
               </Typography>
 
               <Grid container direction="column" spacing={1}>
-                {[
-                  "Avisos Importantes",
-                  "Prepa Coppel",
-                  "Licenciatura en Gerenciamiento",
-                  "Ingeniería en Desarrollo de Software",
-                  "Maestría en Dirección de Negocios",
-                ].map((text) => (
-                  <Grid key={text}>
+                {links.map((item, index) => (
+                  <Grid key={index}>
                     <Typography
                       sx={{
                         ":hover": { textDecoration: "underline", cursor: "pointer" },
                       }}
+                      onClick={() => !item.external ? handleNavigation(item.path) : goToExternal(item.path)}
                     >
-                      {text}
+                      {item.label}
                     </Typography>
                   </Grid>
                 ))}
@@ -94,7 +112,10 @@ export const Footer: React.FC = () => {
                 ALIADOS ESTRATÉGICOS
               </Typography>
 
-              <Typography sx={{ mb: 4 }}>Academia Global</Typography>
+              <Typography sx={{ 
+                mb: 4,
+                ":hover": { textDecoration: "underline", cursor: "pointer" },
+              }} onClick={() => goToExternal('https://academiaglobal.mx/wordpress/')}>Academia Global</Typography>
 
               <Button
                 variant="outlined"
@@ -105,6 +126,7 @@ export const Footer: React.FC = () => {
                   borderRadius: 2,
                   px: 3,
                 }}
+                onClick={handleInscribirme}
               >
                 Contacta a un Asesor
               </Button>

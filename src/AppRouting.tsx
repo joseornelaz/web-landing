@@ -25,6 +25,10 @@ export const AppRouting = createHashRouter([
                 Component: Component.Inscribirme
             },
             {
+                path: AppRoutingPaths.INSCRIBIRME.replace('/:type', ''),
+                Component: Component.Inscribirme
+            },
+            {
                 path: AppRoutingPaths.PREGUNTAS,
                 Component: Component.Preguntas
             },
