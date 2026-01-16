@@ -138,7 +138,7 @@ export const Footer: React.FC = () => {
       {/* BOTTOM DARK SECTION */}
       <Box sx={{ bgcolor: "#2E2E2E", color: "white", py: 6 }}>
         <Container>
-          <Box sx={{ textAlign: "center", mb: 3 }}>
+          <Box sx={{ textAlign: 'center', mb: 3 }}>
             <Box
                 component="img" 
                 src={logo}
@@ -149,6 +149,14 @@ export const Footer: React.FC = () => {
             <Typography sx={{ mt: 1, fontSize: 12, opacity: 0.8 }}>
               DERECHOS RESERVADOS © AG COLLEGE
             </Typography>
+            <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Typography sx={{ mt: 1, fontSize: 10, opacity: 0.8, ":hover": { textDecoration: "underline", cursor: "pointer" }, }}
+                onClick={() => goToExternal('https://programasacademicosuc.com/assets/files/Aviso_de_privacidad_programasacademicosuc.pdf')}
+              >
+                Aviso de Privacidad
+              </Typography>
+            </Box>
+            
           </Box>
 
           <Typography
