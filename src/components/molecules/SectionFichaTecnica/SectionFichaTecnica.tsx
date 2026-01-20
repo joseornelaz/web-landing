@@ -6,40 +6,63 @@ import { Typography } from "../../atoms/Typography/Typography";
 import { FichaTecnica, PlanEstudios } from '../../../assets/icons';
 
 type SectionFichaTecnicaProps = {
-    handleVerMas?: () => void;
-    handleDescargar?: () => void;
+    handleVerMasFT?: () => void;
+    handleDescargarFT?: () => void;
+    handleVerMasPE?: () => void;
+    handleDescargarPE?: () => void;
 }
 
-const icons = [{icon: <FichaTecnica />}, {icon: <PlanEstudios />}];
+const icons = [{id: 'FichaTecnica', icon: <FichaTecnica />}, {id: 'PlanEstudio', icon: <PlanEstudios />}];
 
 export const SectionFichaTecnica: React.FC<SectionFichaTecnicaProps> = (props) => {
     const theme = useTheme();
     
-    const handleVerMas = () => {
-        if (props.handleVerMas) {
-            return props.handleVerMas();
+    const handleVerMasFichaTecnica = () => {
+        if (props.handleVerMasFT) {
+            return props.handleVerMasFT();
         }
     }
 
-    const handleDescargar = () => {
-        if (props.handleDescargar) {
-            return props.handleDescargar();
+    const handleDescargarFichaTecnica = () => {
+        if (props.handleDescargarFT) {
+            return props.handleDescargarFT();
         }
     }
 
-    const buttons = () => (
+    const handleVerMasPlanEstudios = () => {
+        if (props.handleVerMasPE) {
+            return props.handleVerMasPE();
+        }
+    }
+
+    const handleDescargarPlanEstudios = () => {
+        if (props.handleDescargarPE) {
+            return props.handleDescargarPE();
+        }
+    }
+
+    const buttons = (type: string) => (
         <Box sx={{...FlexColumn, gap: '16px'}}>
-            <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}} onClick={handleVerMas}>Ver más</Button>
-            <Button variant="outlined" sx={{borderColor: '#FFF', color: '#FFF'}} onClick={handleDescargar}>Descargar</Button>
+            <Button 
+                variant="contained" 
+                color="secondary" 
+                sx={{ color: theme.palette.primary.main}} 
+                onClick={type === 'FichaTecnica' ? handleVerMasFichaTecnica : handleVerMasPlanEstudios}
+            >Ver más</Button>
+            <Button 
+                variant="outlined" 
+                sx={{borderColor: '#FFF', color: '#FFF'}} 
+                onClick={type === 'FichaTecnica' ? handleDescargarFichaTecnica : handleDescargarPlanEstudios}
+            >Descargar</Button>
         </Box>
     );
 
-    const ficha = (ficha: any) => (
+    const ficha = (item: any) => (
         <Box sx={{...FlexRow, gap: '50px'}}>
             <Box>
-                {ficha}
+                {item.icon}
             </Box>
-            {buttons()}
+            {buttons(item.id)}
         </Box>
     )
 
@@ -53,7 +76,7 @@ export const SectionFichaTecnica: React.FC<SectionFichaTecnicaProps> = (props) =
                         icons && icons.map((item, i) => (
                             <Grid size={{xs:12, md:6}} key={i}>
                                 <Box sx={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                                    {ficha(item.icon)}
+                                    {ficha(item)}
                                 </Box>
                             </Grid>
                         ))

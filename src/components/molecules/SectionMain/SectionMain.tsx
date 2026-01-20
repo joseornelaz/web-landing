@@ -44,7 +44,11 @@ export const SectionMain: React.FC<SectionMainProps> = ({ item, hasLogoText = fa
                                 <Box component="img" src={item.logoPrograma} mb={5} />
                             )
                     }
-                    <Box mb={5}>
+                    <Box mb={5}
+                        sx={[
+                            isHome && { mt: 5 }
+                        ] }
+                    >
                         {
                             !isHome 
                             ? <TituloPagina>Objetivo del<br />Programa</TituloPagina>
@@ -53,6 +57,13 @@ export const SectionMain: React.FC<SectionMainProps> = ({ item, hasLogoText = fa
                         <DescripcionPagina>{item.descripcion}</DescripcionPagina>
                     </Box>
                     <Box mb={5}>
+                        {
+                            isHome && 
+                            <Box sx={{ mt: 4, display: "flex", gap: 2 }}>
+                                <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}}>Programas Académicos</Button>
+                                <Button variant="outlined">Sesiones Informativas</Button>
+                            </Box>
+                        }
                         <DuracionCard>
                             {
                                 !isHome 
@@ -78,14 +89,7 @@ export const SectionMain: React.FC<SectionMainProps> = ({ item, hasLogoText = fa
                         </DuracionCard>
                     </Box>
                     {
-                        !isHome 
-                            ?
-                        <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}} onClick={handleInscribirme}>Quiero Inscribirme</Button>
-                            :
-                        <Box sx={{ mt: 4, display: "flex", gap: 2 }}>
-                            <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}}>Programas Académicos</Button>
-                            <Button variant="outlined">Sesiones Informativas</Button>                            
-                        </Box>
+                        !isHome && <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}} onClick={handleInscribirme}>Quiero Inscribirme</Button>
                     }
                 </Grid>
                 <Grid size={{ xs: 12, md: 7 }}

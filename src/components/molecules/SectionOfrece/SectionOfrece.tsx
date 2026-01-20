@@ -1,4 +1,4 @@
-import { useTheme } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -16,6 +16,7 @@ type SectionOfreceProps = {
 
 export const SectionOfrece: React.FC<SectionOfreceProps> = ({ content, type }) => {
     const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const navigate = useNavigate();
 
     const handleInscribirme = () => {
@@ -27,16 +28,19 @@ export const SectionOfrece: React.FC<SectionOfreceProps> = ({ content, type }) =
             (
                 <Box
                     key={i}
-                    sx={{
-                        p: '30px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '50px',
-                        minHeight: '120px',
-                        maxWidth: '561px',
-                        borderRadius: '7px',
-                        boxShadow: '0px 3px 6px #00000029'
-                    }}
+                    sx={[
+                        {
+                            p: '30px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '50px',
+                            minHeight: '120px',
+                            maxWidth: '561px',
+                            borderRadius: '7px',
+                            boxShadow: '0px 3px 6px #00000029'
+                        },
+                        isMobile && { p: 0, pr: '10px', pl: '10px', gap: '24px' }
+                    ]}
                 >
                     <ArrowForwardIcon sx={{fontSize: '40px', color: '#05297A'}} />
                     <Typography variant="body1" component="span">{text}</Typography>
@@ -48,9 +52,27 @@ export const SectionOfrece: React.FC<SectionOfreceProps> = ({ content, type }) =
     return(
         <Grid container spacing={4}>
             <Grid size={{ xs:12, md:7 }}>
-                <Box sx={{...FlexColumn, justifyContent: 'center', height: '100%'}}>
+                <Box sx={{
+                    ...FlexColumn, 
+                    justifyContent: 'center', 
+                    height: '100%', 
+                    
+                }}>
                     <TituloPagina>{content?.title}</TituloPagina>
-                    <Box sx={{...FlexColumn, gap: '20px'}}>
+                    <Box sx={{
+                        ...FlexColumn, 
+                        gap: '20px',
+                        overflowY: !isMobile ? 'hidden' : 'auto', 
+                        overflowX: 'hidden',
+                        minHeight: 350, 
+                        maxHeight: 450, 
+                        py: 2,
+                        px: 1,
+                        width: !isMobile ? '86%' : '100%',
+                        '&:hover': {
+                            overflowY: 'auto', 
+                        }
+                    }}>
                         { cards() }
                     </Box>
                 </Box>

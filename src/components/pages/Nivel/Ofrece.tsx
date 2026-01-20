@@ -12,16 +12,27 @@ const contentArray = [
     { 
         type: NivelTypes.PREPA,
         values: {
-            title: 'Prepa Coppel te ofrece',
-            cards: ['Beca académica para colaboradores, colaboradoras y sus familiares con base en la Decisión 21-A.', 'Contenidos diseñados para jóvenes y adultos que trabajan.', 'Revalidación o equivalencia de materias, en caso de tener estudios inconclusos de Bachillerato.'],
+            title: 'Prepa Coppel te ofrece:',
+            cards: ['Beca académica para colaboradores, colaboradoras y sus familiares con base en la Decisión 21-A.', 
+            'Contenidos diseñados para jóvenes y adultos que trabajan.', 
+            'Revalidación o equivalencia de materias, en caso de tener estudios inconclusos de Bachillerato.',
+            'Programa extensivo a familiares directos (cónyuge e hijos) del colaborador o colaboradora.',
+            'Registro de validez oficial de estudios ante la Secretaría de Educación Pública.',
+            'Si eres colaborador, podrás tramitar tu incentivo por término de estudios, de acuerdo con la Decisión 21-A Prestaciones y Beneficios para Grupo Coppel.'
+            ],
             imagen: imgPrepa
         }
     },
     { 
         type: NivelTypes.LIC,
         values: {
-            title: 'La Licenciatura en Gerenciamiento te ofrece',
-            cards: ['Beca académica para colaboradores, colaboradoras y familiares con base en la Decisión 21-A.', 'Descuento vía nómina en pago de materias e inscripción.', 'Revalidación o equivalencia de materias, en caso de tener estudios inconclusos de Licenciatura afín.'],
+            title: 'La Licenciatura en Gerenciamiento te ofrece:',
+            cards: ['Beca académica para colaboradores, colaboradoras y familiares con base en la Decisión 21-A.', 
+            'Descuento vía nómina en pago de materias e inscripción.', 
+            'Revalidación o equivalencia de materias, en caso de tener estudios inconclusos de Licenciatura afín.', 
+            'Programa extensivo a familiares directos (cónyuge e hijos) del colaborador o colaboradora.',
+            'Registro de validez oficial de estudios ante la Secretaría de Educación Pública.',
+            'Si eres colaborador, podrás tramitar tu incentivo por término de estudios, de acuerdo con la Decisión 21-A Prestaciones y Beneficios para Grupo Coppel.'],
             imagen: imgLEG
         }
     },
@@ -29,7 +40,12 @@ const contentArray = [
         type: NivelTypes.ING,
         values: {
             title: 'La Ingeniería en Desarrollo de Software te ofrece:',
-            cards: ['Beca académica para colaboradores, colaboradoras y familiares con base en la Decisión 21-A.', 'Descuento vía nómina en pago de materias e inscripción.', 'Revalidación o equivalencia de materias, en caso de tener estudios inconclusos de Licenciatura afín.'],
+            cards: ['Beca académica para colaboradores, colaboradoras y familiares con base en la Decisión 21-A.', 
+            'Descuento vía nómina en pago de materias e inscripción.', 
+            'Revalidación o equivalencia de materias, en caso de tener estudios inconclusos de Ingenieria afín.',
+            'Programa extensivo a familiares directos (cónyuge e hijos) del colaborador o colaboradora.',
+            'Registro de validez oficial de estudios ante la Secretaría de Educación Pública.',
+            'Si eres colaborador, podrás tramitar tu incentivo por término de estudios, de acuerdo con la Decisión 21-A Prestaciones y Beneficios para Grupo Coppel.'],
             imagen: imgING
         }
     },

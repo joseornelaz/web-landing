@@ -5,14 +5,21 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material";
 
 import './SectionAlgunaDuda.scss';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AppRoutingPaths } from "@constants";
 
 export const SectionAlgunaDuda: React.FC = () => {
     const theme = useTheme();    
     const navigate = useNavigate();
 
+    const { type } = useParams<{ type: string }>();
+
     const handlePreguntas = () => navigate(AppRoutingPaths.PREGUNTAS);
+
+    const handleInscribirme = () => {
+      const params = !type ? '' : type;
+      navigate('/inscribirme/' + params);
+    }
 
     return(
         <Box className="contenedor-azul">
@@ -61,7 +68,7 @@ export const SectionAlgunaDuda: React.FC = () => {
               }}
             >
               <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}} onClick={handlePreguntas}>Preguntas Frecuentes</Button>
-              <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}}>Contacta a un Asesor/a</Button>
+              <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}} onClick={handleInscribirme}>Contacta a un Asesor/a</Button>
             </Box>
           </Box>
           <Box component={"img"} src={AlgunaDuda} className="img-personas" />

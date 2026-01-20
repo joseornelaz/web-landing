@@ -23,7 +23,7 @@ export const Main: React.FC = () => {
             <Box 
                 sx={{
                     minHeight: { xs: 'auto', md: 'calc(100vh - 200px)' },
-                    mt: { xs: 0, md: '30px' },
+                    mt: { xs: 0 },
                 }}
             >
                 <SectionMain item={info} isHome={true} type='home' />

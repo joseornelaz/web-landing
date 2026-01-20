@@ -1,0 +1,111 @@
+// Contenedor principal
+.modelo-academico-container {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    margin-top: 80px;
+    padding: 0 16px;
+  
+    @media (min-width: 600px) {
+      padding: 0 24px;
+    }
+  }
+  
+  // Card azul
+  .modelo-card {
+    width: 100%;
+    border-radius: 24px;
+    overflow: hidden; // Hidden en mobile
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  
+    @media (min-width: 960px) {
+      overflow: visible; // Visible en desktop para que la cabeza sobresalga
+    }
+  }
+  
+  // Contenido del card
+  .modelo-content {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #2563EB 0%, #0F172A 100%);
+    padding: 24px;
+    position: relative;
+    border-radius: 24px; // Border radius aquí también
+  
+    // Desktop
+    @media (min-width: 960px) {
+      flex-direction: row;
+      align-items: center;
+      padding: 48px;
+      min-height: 482px;
+    }
+  
+    @media (min-width: 1280px) {
+      min-height: 485px;
+    }
+  }
+  
+  // Contenedor del texto
+  .modelo-texto {
+    width: 100%;
+    order: 1; // Texto primero en mobile
+    
+    @media (min-width: 960px) {
+      order: 2; // Texto segundo en desktop (derecha)
+      flex: 1;
+      padding-left: 40px;
+    }
+  }
+  
+  // Imagen
+  .modelo-imagen {
+    display: block;
+    margin: 24px auto 0;
+    margin-bottom: -24px; // Pegada al bottom en mobile
+    order: 2; // Imagen después en mobile (abajo)
+    width: 240px;
+    height: auto;
+  
+    @media (min-width: 375px) {
+      width: 260px;
+    }
+  
+    @media (min-width: 414px) {
+      width: 280px;
+    }
+  
+    @media (min-width: 600px) {
+      width: 300px;
+    }
+  
+    @media (min-width: 768px) {
+      width: 320px;
+    }
+  
+    // Desktop - imagen a la izquierda con cabeza sobresaliendo MÁS
+    @media (min-width: 960px) {
+      order: 1; // Imagen primero en desktop (izquierda)
+      margin: 0;
+      margin-top: -120px; // Sobresale más la cabeza
+      margin-bottom: -48px; // Pegada al bottom
+      align-self: flex-end; // Se alinea al fondo
+      width: 380px;
+      flex-shrink: 0; // No se encoge
+    }
+  
+    @media (min-width: 1024px) {
+      width: 420px;
+      margin-top: -140px;
+    }
+  
+    @media (min-width: 1280px) {
+      width: 450px;
+      margin-top: -160px;
+    }
+  
+    @media (min-width: 1440px) {
+      width: 480px;
+      margin-top: -180px;
+    }
+  }

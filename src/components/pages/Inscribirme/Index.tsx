@@ -4,10 +4,16 @@ import Grid from "@mui/material/Grid";
 import backgroundImage from "../../../assets/inscribirme.png";
 import { FormInscribirme } from "./Formulario";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { useEffect } from "react";
 
 const Inscribirme: React.FC = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+    // Scroll al inicio cuando cambia el type
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
 
     const Formulario = () => (
         <Box

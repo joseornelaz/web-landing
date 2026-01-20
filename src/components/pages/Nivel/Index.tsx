@@ -50,7 +50,7 @@ const Nivel: React.FC = () => {
                 pb: {xs: '24px', md: '40px'}
             }} id="ficha-tecnica">
                 <Box component="div" ref={fichaRef} className="scale-in">
-                    <FichaTecnica />
+                    <FichaTecnica type={type} />
                 </Box>
             </Box>
             <Box component="div" ref={timelineRef} className="slide-in-up">

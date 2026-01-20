@@ -21,7 +21,7 @@ const Home: React.FC = () => {
     return(
         <>
             <Box
-                sx={{display: 'flex', flexDirection: 'column', gap: '24px', mt: '70px'}}
+                sx={{display: 'flex', flexDirection: 'column', gap: '24px'}}
             >
                 <Main />
                 <Box component="div" ref={numerosRef} className="slide-in-left">

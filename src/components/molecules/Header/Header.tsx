@@ -13,6 +13,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { NivelTypes } from "../../../types/NivelTypes";
 import { useEffect, useState } from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import React from "react";
 
 export const Header: React.FC = () => {
@@ -35,6 +36,22 @@ export const Header: React.FC = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [menuAbierto, setMenuAbierto] = useState<string | null>(null);
 
+
+    const [menuAccesoAnchorEl, setMenuAccessoAnchorEl] = React.useState<null | HTMLElement>(null);
+    const openMenuAcceso = Boolean(menuAccesoAnchorEl);
+    
+    const handleClickMenuAcceso = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setMenuAccessoAnchorEl(event.currentTarget);
+    };
+    const handleCloseMenuAcceso = () => {
+        setMenuAccessoAnchorEl(null);
+    };
+
+    const MenuAccesos = [
+        { label: 'Prepa Coppel' },{ label: 'Licenciatura en<br>Gerenciamiento' },
+        { label: 'Ingeniería en<br>Desarrollo de Software' },{ label: 'Maestría en<br>Dirección de Negocios' },
+    ]
+
     const botones = [
         { 
             id: 'lic', 
@@ -54,14 +71,14 @@ export const Header: React.FC = () => {
             id: 'pos', 
             etiqueta: 'Posgrados', 
             opciones: [
-                { sub: 'Maestría en Dirección de Negocios', path: `/nivel/${NivelTypes.MAESTRIA}` }
+                { sub: 'Maestría<br>en Dirección de Negocios', path: `/nivel/${NivelTypes.MAESTRIA}` }
             ] 
         },
         { 
             id: 'dip', 
             etiqueta: 'Diplomados', 
             opciones: [
-                { sub: 'Inteligencia Artificial, Liderazgo y Cultura Digital', path: `/${NivelTypes.DIPLOMADO}` }
+                { sub: 'Inteligencia Artificial,<br> Liderazgo y Cultura Digital', path: `/${NivelTypes.DIPLOMADO}` }
             ] 
         },
     ];
@@ -172,9 +189,33 @@ export const Header: React.FC = () => {
                             fontWeight: 500,
                             p:0
                         }}
+                        onClick={handleClickMenuAcceso}
                     >
                         Acceso a Campus Digital
                     </Button>
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={menuAccesoAnchorEl}
+                        open={openMenuAcceso}
+                        onClose={handleCloseMenuAcceso}
+                        disableScrollLock={true}
+                        slotProps={{
+                          list: {
+                            'aria-labelledby': 'basic-button',
+                          },
+                        }}
+                    >
+                        {
+                            MenuAccesos && MenuAccesos.map((item, index) => 
+                                <MenuItem 
+                                    key={index}
+                                    onClick={handleCloseMenuAcceso}
+                                >
+                                    <Typography component="span" dangerouslySetInnerHTML={{ __html: item.label }} />
+                                </MenuItem>
+                            )
+                        }
+                    </Menu>
                 </Container>
             </Box>
       
@@ -212,7 +253,7 @@ export const Header: React.FC = () => {
                                                     <Button
                                                         color="inherit"
                                                         onMouseEnter={(e) => handleOpen(e, boton.id)}
-                                                        endIcon={<KeyboardArrowDownIcon />}
+                                                        endIcon={menuAbierto === boton.id ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                                                         sx={{ textTransform: 'none' }}
                                                     >
                                                         {boton.etiqueta}
@@ -242,7 +283,7 @@ export const Header: React.FC = () => {
                                                                 key={i} 
                                                                 onClick={() => handleNavigation(opcion.path)}
                                                             >
-                                                                {opcion.sub}
+                                                                <Typography component="span" dangerouslySetInnerHTML={{ __html: opcion.sub }} />
                                                             </MenuItem>
                                                         ))}
                                                     </Menu>
