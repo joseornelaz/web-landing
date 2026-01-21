@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import Box from "@mui/material/Box";
 import { Typography } from "../../atoms/Typography/Typography";
 import Grid from "@mui/material/Grid";
@@ -11,27 +12,75 @@ import { inscribirmeSchema, type InscribirmeFormData } from "../../../schemas/in
 import { zodResolver } from "@hookform/resolvers/zod";
 import MenuItem from "@mui/material/MenuItem";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { PROGRAMAS_ACADEMICOS_SELECT } from "../../../types/ProgramasType";
+import { useNotification } from "../../../provider/NotificationProvider";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useMutation } from "@tanstack/react-query";
+import { useContacto } from "../../../services/AsesoriaService";
+import { TextMaskCustom } from "../../molecules/TextMask/TextMask";
 
-const programas = [
-  {id_programa: 1, value: 'Licenciatura'},
-  {id_programa: 2, value: 'Maestria'},
-  {id_programa: 1, value: 'Doctorado'},
-];
+const programas = PROGRAMAS_ACADEMICOS_SELECT;
 
 export const FormInscribirme: React.FC = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const { showNotification } = useNotification();
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+    const [captchaValido, setCaptchaValido] = useState(false);
+    const [captcha, setCaptcha] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const { control, formState: { errors } } = useForm<InscribirmeFormData>({
+    const { control, handleSubmit, formState: { errors }, reset } = useForm<InscribirmeFormData>({
         resolver: zodResolver(inscribirmeSchema(programas.map(p => p.id_programa)) ?? [0]),
         defaultValues: {
-            nombre: '',
-            apellido: '',
-            correo: '',
-            telefono: '',
-            id_programa: 0
+            nombreQuiero: '',
+            apellidosQuiero: '',
+            correoQuiero: '',
+            numQuiero: '',
+            id_programa: 0,
+            comentariosQuiero: ''
         },
     });
+
+    const onSubmit: any = async (data: InscribirmeFormData) => {
+        if(captchaValido) {
+          setLoading(true);        
+          // console.log(recaptchaRef.current?.getValue());
+          createMutation.mutate({...data, dirQuiero: 'dir', recaptchaResponse: recaptchaRef.current?.getValue()});
+        }else{
+          showNotification("Por favor de completar CAPTCHA", "warning");
+        }
+    };
+
+    const createMutation = useMutation({
+        mutationFn: useContacto,
+        onSuccess: async (response) => {
+          console.log(response);
+          if(response.data.success) {
+            showNotification(`La información se envió satisfactoriamente`, "success");
+          }else{
+            showNotification(`Hubo un error al enviar el formulario, intentar de nuevo`, "error");
+          }
+          setLoading(false);
+          recaptchaRef.current?.reset();
+          reset();
+        },
+        onError: (error) => {
+          showNotification(`Error al enviar: ${error.message}`, "error");
+          setLoading(false);
+        },
+        onSettled: () => {
+          console.log('La mutación ha finalizado');
+        }
+      });
+  
+      const onCaptchaChange = () => {
+          setCaptchaValido(true);
+      };
+  
+      useEffect(() => {
+        setTimeout(() => setCaptcha(import.meta.env.VITE_APP_CAPTCHA), 200);
+      },[]);
 
     return(
         <Box 
@@ -50,7 +99,7 @@ export const FormInscribirme: React.FC = () => {
             <Grid container spacing={4} rowSpacing={1} sx={{mt: '36px'}}>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Controller
-                    name="nombre"
+                    name="nombreQuiero"
                     control={control}
                     render={({ field }) => (
                         <TextField
@@ -58,8 +107,8 @@ export const FormInscribirme: React.FC = () => {
                             id="nombre"
                             label="Nombre completo"
                             placeholder="Ingresa tu nombre completo"
-                            error={!!errors.nombre}
-                            helperText={errors.nombre?.message}
+                            error={!!errors.nombreQuiero}
+                            helperText={errors.nombreQuiero?.message}
                             fullWidth
                         />
                     )}
@@ -67,7 +116,7 @@ export const FormInscribirme: React.FC = () => {
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Controller
-                    name="apellido"
+                    name="apellidosQuiero"
                     control={control}
                     render={({ field }) => (
                         <TextField
@@ -75,8 +124,8 @@ export const FormInscribirme: React.FC = () => {
                             id="apellido"
                             label="Apellidos"
                             placeholder="Ingresa tus apellidos"
-                            error={!!errors.apellido}
-                            helperText={errors.apellido?.message}
+                            error={!!errors.apellidosQuiero}
+                            helperText={errors.apellidosQuiero?.message}
                             fullWidth
                         />
                     )}
@@ -84,7 +133,7 @@ export const FormInscribirme: React.FC = () => {
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Controller
-                    name="correo"
+                    name="correoQuiero"
                     control={control}
                     render={({ field }) => (
                         <TextField
@@ -92,8 +141,8 @@ export const FormInscribirme: React.FC = () => {
                             id="correo"
                             label="Correo Eléctronico"
                             placeholder="Ingresar Correo Eléctronico"
-                            error={!!errors.correo}
-                            helperText={errors.correo?.message}
+                            error={!!errors.correoQuiero}
+                            helperText={errors.correoQuiero?.message}
                             fullWidth
                         />
                     )}
@@ -101,7 +150,7 @@ export const FormInscribirme: React.FC = () => {
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Controller
-                    name="telefono"
+                    name="numQuiero"
                     control={control}
                     render={({ field }) => (
                       <TextField
@@ -109,9 +158,14 @@ export const FormInscribirme: React.FC = () => {
                             id="telefono"
                             label="Número Télefónico"
                             placeholder="Ingresar Número Télefónico"
-                            error={!!errors.telefono}
-                            helperText={errors.telefono?.message}
+                            error={!!errors.numQuiero}
+                            helperText={errors.numQuiero?.message}
                             fullWidth
+                            slotProps={{
+                              input: {
+                                inputComponent: TextMaskCustom as any,
+                              },
+                            }}
                         />
                     )}
                 />
@@ -133,7 +187,7 @@ export const FormInscribirme: React.FC = () => {
                               {
                                   programas && programas.map((item, i) => (
                                       <MenuItem key={i} value={item.id_programa}>
-                                          {item.value}
+                                          {item.label}
                                       </MenuItem>
                                   ))
                               }
@@ -144,7 +198,7 @@ export const FormInscribirme: React.FC = () => {
               </Grid>
               <Grid size={{ xs: 12, md: 12 }}>
                 <Controller
-                    name="mensaje"
+                    name="comentariosQuiero"
                     control={control}
                     render={({ field }) => (
                       <TextField
@@ -152,8 +206,8 @@ export const FormInscribirme: React.FC = () => {
                             id="mensaje"
                             label="Mensaje"
                             placeholder="Ingresar Mensaje"
-                            error={!!errors.mensaje}
-                            helperText={errors.mensaje?.message}
+                            error={!!errors.comentariosQuiero}
+                            helperText={errors.comentariosQuiero?.message}
                             fullWidth
                             multiline
                             rows={4}
@@ -164,8 +218,16 @@ export const FormInscribirme: React.FC = () => {
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Box
-                  sx={{height: '70px', width: '100%', border: '1px solid', mt: 1}}
-                />
+                  sx={{height: '70px', width: '100%', mt: 2}}
+                >
+                  {
+                    captcha && <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey={captcha}
+                      onChange={onCaptchaChange}
+                    />
+                  }
+                </Box>
               </Grid>
               <Grid size={{ xs: 12, md: 12 }}>
                 <Box
@@ -177,9 +239,22 @@ export const FormInscribirme: React.FC = () => {
                     {
                         isMobile 
                         ? 
-                            <Button color="primary" fullWidth variant="contained">Enviar Mensaje</Button>
+                            <Button 
+                                color="primary" 
+                                fullWidth 
+                                variant="contained"
+                                onClick={handleSubmit(onSubmit)}
+                                loading={loading}
+                                loadingPosition="end"
+                            >Enviar Mensaje</Button>
                         :
-                            <Button color="primary" variant="outlined">Enviar Mensaje</Button>
+                            <Button 
+                                color="primary" 
+                                variant="outlined"
+                                onClick={handleSubmit(onSubmit)}
+                                loading={loading}
+                                loadingPosition="end"
+                            >Enviar Mensaje</Button>
                     }
                 </Box>
               </Grid>

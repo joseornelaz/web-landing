@@ -5,12 +5,10 @@ const messageTelefono = "Deben ser 10 dígitos";
 
 export const inscribirmeSchema = (programas: number[]) => 
     z.object({
-        nombre: z.string().nonempty("Nombre Completo es requerido"),
-        apellido: z.string().nonempty("Apellidos es requerido"),
-        // matricula: z.string().nonempty("Numero de colaborador/a es requerido"),
-        correo: z.email().nonempty("Correo Eléctronico es requerido"),
-        // correo: z.string().nonempty("Email es requerido").email("Debe ser un email válido"),
-        telefono: z.string().nonempty("Teléfono Celular es requerido").refine(isValidPhone, {
+        nombreQuiero: z.string().nonempty("Nombre Completo es requerido"),
+        apellidosQuiero: z.string().nonempty("Apellidos es requerido"),
+        correoQuiero: z.email({ message: "Debe ser un email válido" }).nonempty("Correo Eléctronico es requerido"),
+        numQuiero: z.string().nonempty("Teléfono Celular es requerido").refine(isValidPhone, {
             message: messageTelefono,
         }),
         id_programa: z
@@ -19,7 +17,7 @@ export const inscribirmeSchema = (programas: number[]) =>
             .refine((id) => programas.includes(id), {
                 message: "Programa de interes es requerido",
             }),
-        mensaje: z.string(),
+        comentariosQuiero: z.string(),
 });
 
 export type InscribirmeFormData = z.infer<ReturnType<typeof inscribirmeSchema>>;

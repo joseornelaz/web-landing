@@ -11,6 +11,7 @@ import {
 import logo from '../../../assets/logo.png';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { NivelTypes } from "../../../types/NivelTypes";
+import { PROGRAMAS_ACADEMICOS } from "../../../types/ProgramasType";
 
 export const Footer: React.FC = () => {
   const location = useLocation();
@@ -22,23 +23,18 @@ export const Footer: React.FC = () => {
   const isInscribirmePage = location.pathname.startsWith('/inscribirme/');
 
   const links = [
-    { label: "Avisos Importantes", path: 'https://programasacademicosuc.com/Avisosimportantes.php', external: true },
-    { label: "Prepa Coppel", path: `/nivel/${NivelTypes.PREPA}`, external: false },
-    { label: "Licenciatura en Gerenciamiento", path: `/nivel/${NivelTypes.LIC}`, external: false },
-    { label: "Ingeniería en Desarrollo de Software", path: `/nivel/${NivelTypes.ING}`, external: false },
-    { label: "Maestría en Dirección de Negocios", path: `/nivel/${NivelTypes.MAESTRIA}`, external: false },
+    { label: "Avisos Importantes", path: `${import.meta.env.VITE_EXTERNAL_LINK_UCC}/Avisosimportantes.php`, external: true },
+    { label: PROGRAMAS_ACADEMICOS.PREPA, path: `/nivel/${NivelTypes.PREPA}`, external: false },
+    { label: PROGRAMAS_ACADEMICOS.LICENCIATURA, path: `/nivel/${NivelTypes.LIC}`, external: false },
+    { label: PROGRAMAS_ACADEMICOS.INGENIERIA, path: `/nivel/${NivelTypes.ING}`, external: false },
+    { label: PROGRAMAS_ACADEMICOS.MAESTRIA, path: `/nivel/${NivelTypes.MAESTRIA}`, external: false },
   ];
 
-  const handleNavigation = (route: string) => {
-    navigate(route);
-  }
+  const handleNavigation = (route: string) => navigate(route);
 
-  const goToExternal = (path: string) => window.open(path, '_blank');
+  const goToExternal = (path: string) => window.open(path, '_blank', 'noopener,noreferrer');
 
-  const handleInscribirme = () => {
-    const params = !type ? '' : type;
-    navigate('/inscribirme/' + params);
-  }
+  const handleInscribirme = () => navigate(`/inscribirme/${!type ? '' : type}`);
 
   return (
     <Box component="footer" sx={{ mt: !isInscribirmePage ? 8 : 0 }}>

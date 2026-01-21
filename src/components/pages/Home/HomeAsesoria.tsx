@@ -16,12 +16,9 @@ import { useMutation } from "@tanstack/react-query";
 import { useAsesoria } from "../../../services/AsesoriaService";
 import { TextMaskCustom } from "../../molecules/TextMask/TextMask";
 import { useNotification } from "../../../provider/NotificationProvider";
+import { PROGRAMAS_ACADEMICOS_SELECT } from "../../../types/ProgramasType";
 
-const programas = [
-  {id_programa: 1, value: 'Licenciatura'},
-  {id_programa: 2, value: 'Maestria'},
-  {id_programa: 1, value: 'Doctorado'},
-];
+const programas = PROGRAMAS_ACADEMICOS_SELECT;
 
 export const HomeAsesoria: React.FC = () => {
     const theme = useTheme();
@@ -31,7 +28,7 @@ export const HomeAsesoria: React.FC = () => {
     const [captcha, setCaptcha] = useState('');
     const [loading, setLoading] = React.useState(false);
 
-    const { control, handleSubmit, formState: { errors } } = useForm<AsesoriaFormData>({
+    const { control, handleSubmit, formState: { errors }, reset } = useForm<AsesoriaFormData>({
         resolver: zodResolver(asesoriaSchema(programas.map(p => p.id_programa)) ?? [0]),
         defaultValues: {
           nombreContacto: '',
@@ -42,11 +39,11 @@ export const HomeAsesoria: React.FC = () => {
         },
     });
 
-    const onSubmit = async (data: AsesoriaFormData) => {
+    const onSubmit: any = async (data: AsesoriaFormData) => {
       if(captchaValido) {
         setLoading(true);        
         // console.log(recaptchaRef.current?.getValue());
-        createMutation.mutate(data);
+        createMutation.mutate({...data, recaptchaResponse: recaptchaRef.current?.getValue()});
       }else{
         showNotification("Por favor de completar CAPTCHA", "warning");
       }
@@ -56,13 +53,14 @@ export const HomeAsesoria: React.FC = () => {
       mutationFn: useAsesoria,
       onSuccess: async (response) => {
         console.log(response);
-        if(response.success) {
+        if(response.data.success) {
           showNotification(`La información se envió satisfactoriamente`, "success");
         }else{
           showNotification(`Hubo un error al enviar el formulario, intentar de nuevo`, "error");
         }
         setLoading(false);
         recaptchaRef.current?.reset();
+        reset();
       },
       onError: (error) => {
         showNotification(`Error al enviar: ${error.message}`, "error");
@@ -202,7 +200,7 @@ export const HomeAsesoria: React.FC = () => {
                               {
                                   programas && programas.map((item, i) => (
                                       <MenuItem key={i} value={item.id_programa}>
-                                          {item.value}
+                                          {item.label}
                                       </MenuItem>
                                   ))
                               }

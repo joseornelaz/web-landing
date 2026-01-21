@@ -27,6 +27,8 @@ export const SectionMain: React.FC<SectionMainProps> = ({ item, hasLogoText = fa
         navigate('/inscribirme/' + type);
     }
 
+    const handleGoToExternalLink = () => window.open(`${import.meta.env.VITE_EXTERNAL_LINK_UCC}/sesiones-virtuales-coppel.php`, '_blank', 'noopener,noreferrer');    
+
     return(
         <BackgroundContainer>
             <Grid container spacing={4}>
@@ -61,7 +63,7 @@ export const SectionMain: React.FC<SectionMainProps> = ({ item, hasLogoText = fa
                             isHome && 
                             <Box sx={{ mt: 4, display: "flex", gap: 2 }}>
                                 <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}}>Programas Académicos</Button>
-                                <Button variant="outlined">Sesiones Informativas</Button>
+                                <Button variant="outlined" onClick={handleGoToExternalLink}>Sesiones Informativas</Button>
                             </Box>
                         }
                         <DuracionCard>
