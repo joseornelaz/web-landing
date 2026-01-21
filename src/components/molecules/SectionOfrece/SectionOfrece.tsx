@@ -8,6 +8,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { TituloPagina } from "../TituloPagina/TituloPagina";
 import { FlexColumn, FlexRow } from "../../../styles/styles";
 import { useNavigate } from "react-router-dom";
+import { BotonSesionesInformativas } from "../BotonSesionesInformativas/BotonSesionesInformativas";
 
 type SectionOfreceProps = {
     content: { title: string; cards: string[]; imagen: any; };
@@ -82,7 +83,7 @@ export const SectionOfrece: React.FC<SectionOfreceProps> = ({ content, type }) =
                     <Box component="img" src={content?.imagen} />
                     <Box sx={{...FlexRow, gap: '10px'}}>
                         <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}} onClick={handleInscribirme}>Estoy Interesado/a</Button>
-                        <Button variant="outlined">Sesiones Informativas</Button>
+                        <BotonSesionesInformativas />
                     </Box>
                 </Box>
             </Grid>

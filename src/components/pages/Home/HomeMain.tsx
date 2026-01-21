@@ -9,6 +9,7 @@ import bg from '../../../assets/bg.png';
 import Group1 from '../../../assets/home/group_movil.png';
 import Group2 from '../../../assets/home/group_desktop.png';
 import { Typography } from "../../atoms/Typography/Typography";
+import { BotonSesionesInformativas } from "../../molecules/BotonSesionesInformativas/BotonSesionesInformativas";
 
 const HomeMain: React.FC = () => {
     const theme = useTheme();
@@ -67,7 +68,7 @@ const HomeMain: React.FC = () => {
 
                 <Box sx={{ mt: 4, display: "flex", gap: 2 }}>
                   <Button variant="contained" color="secondary" sx={{ color: theme.palette.primary.main}}>Programas Académicos</Button>
-                  <Button variant="outlined">Sesiones Informativas</Button>
+                  <BotonSesionesInformativas />
                 </Box>
 
                 <Box sx={{ 

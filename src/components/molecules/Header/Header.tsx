@@ -1,3 +1,4 @@
+import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -14,7 +15,7 @@ import { NivelTypes } from "../../../types/NivelTypes";
 import { useEffect, useState } from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import React from "react";
+import { MENU_ACCESOS, MENU_HEADER } from "../../../types/ProgramasType";
 
 export const Header: React.FC = () => {
     const theme = useTheme();
@@ -24,6 +25,9 @@ export const Header: React.FC = () => {
     const location = useLocation();
     const [isFixed, setIsFixed] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(false);
+
+    const MenuAccesos = MENU_ACCESOS;
+    const botones = MENU_HEADER;
 
     const handleNavigation = (route: string) => {
         navigate(route);
@@ -36,52 +40,21 @@ export const Header: React.FC = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [menuAbierto, setMenuAbierto] = useState<string | null>(null);
 
-
     const [menuAccesoAnchorEl, setMenuAccessoAnchorEl] = React.useState<null | HTMLElement>(null);
     const openMenuAcceso = Boolean(menuAccesoAnchorEl);
     
     const handleClickMenuAcceso = (event: React.MouseEvent<HTMLButtonElement>) => {
         setMenuAccessoAnchorEl(event.currentTarget);
     };
+    
     const handleCloseMenuAcceso = () => {
         setMenuAccessoAnchorEl(null);
     };
 
-    const MenuAccesos = [
-        { label: 'Prepa Coppel' },{ label: 'Licenciatura en<br>Gerenciamiento' },
-        { label: 'Ingeniería en<br>Desarrollo de Software' },{ label: 'Maestría en<br>Dirección de Negocios' },
-    ]
-
-    const botones = [
-        { 
-            id: 'lic', 
-            etiqueta: 'Licenciaturas', 
-            opciones: [
-                { sub: 'En Gerenciamiento', path: `/nivel/${NivelTypes.LIC}` }
-            ] 
-        },
-        { 
-            id: 'ing', 
-            etiqueta: 'Ingenierías', 
-            opciones: [
-                { sub: 'En Desarrollo de Software', path: `/nivel/${NivelTypes.ING}` }
-            ] 
-        },
-        { 
-            id: 'pos', 
-            etiqueta: 'Posgrados', 
-            opciones: [
-                { sub: 'Maestría<br>en Dirección de Negocios', path: `/nivel/${NivelTypes.MAESTRIA}` }
-            ] 
-        },
-        { 
-            id: 'dip', 
-            etiqueta: 'Diplomados', 
-            opciones: [
-                { sub: 'Inteligencia Artificial,<br> Liderazgo y Cultura Digital', path: `/${NivelTypes.DIPLOMADO}` }
-            ] 
-        },
-    ];
+    const goToExternal = (path: string) => {
+        handleCloseMenuAcceso();
+        window.open(path, '_SELF');
+    }
       
     const handleOpen = (event: any, id: any) => {
         setAnchorEl(event.currentTarget);
@@ -175,11 +148,11 @@ export const Header: React.FC = () => {
         <>
             <Box sx={{ bgcolor: theme.palette.secondary.main, px: 2, py: 0.6 }}>
                 <Container 
-                    sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}
+                    sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}
                 >
-                    <Typography variant="caption">
+                    {/* <Typography variant="caption">
                         Prepa Coppel: Inicio de Inscripciones (Fecha aquí) 2025
-                    </Typography>
+                    </Typography> */}
                     <Button
                         endIcon={<KeyboardArrowDown />}
                         sx={{
@@ -209,7 +182,7 @@ export const Header: React.FC = () => {
                             MenuAccesos && MenuAccesos.map((item, index) => 
                                 <MenuItem 
                                     key={index}
-                                    onClick={handleCloseMenuAcceso}
+                                    onClick={() => goToExternal(item.path)}
                                 >
                                     <Typography component="span" dangerouslySetInnerHTML={{ __html: item.label }} />
                                 </MenuItem>
@@ -226,7 +199,8 @@ export const Header: React.FC = () => {
                         <Box
                             component="img" 
                             src={logo}
-                            sx={{ mr: 2 }}
+                            sx={{ mr: 2, cursor: 'pointer' }}
+                            onClick={() => handleNavigation('/')}
                         />
                         <Box>
                             <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2, fontSize: '16px' }}>
