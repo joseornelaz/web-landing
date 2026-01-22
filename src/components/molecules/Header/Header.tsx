@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import { KeyboardArrowDown } from '@mui/icons-material';
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import { Container, IconButton, Menu, MenuItem, useMediaQuery, useTheme, Drawer, List, ListItem, ListItemButton, ListItemText, Divider } from "@mui/material";
+import { Container, IconButton, Menu, MenuItem, useMediaQuery, useTheme, Drawer, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 
