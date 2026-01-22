@@ -76,6 +76,9 @@
   margin: 0 auto !important;
   padding: 0 !important;
   color: #343A40;
+
+  padding-right: 0 !important;
+  overflow-x: hidden;
 }
 
 body {
@@ -83,6 +86,13 @@ body {
   margin: 0 auto !important;
   padding: 0 !important;
   color: #343A40;
+
+  padding-right: 0 !important;
+  overflow-x: hidden;
+}
+
+html {
+  overflow-x: hidden;
 }
 
 

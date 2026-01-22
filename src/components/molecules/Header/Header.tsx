@@ -7,6 +7,8 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { Container, IconButton, Menu, MenuItem, useMediaQuery, useTheme, Drawer, List, ListItem, ListItemButton, ListItemText, Divider } from "@mui/material";
 
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+
 import logo from '../../../assets/logo.png';
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -32,6 +34,7 @@ export const Header: React.FC = () => {
     const handleNavigation = (route: string) => {
         navigate(route);
         handleClose();
+        setDrawerOpen(false);
     }
 
     const isNivelPage = location.pathname.startsWith('/nivel/');
@@ -78,51 +81,103 @@ export const Header: React.FC = () => {
             return;
         }
         setDrawerOpen(open);
+        if(!open) handleClose();
     };
 
     const renderDrawerContent = () => (
         <Box
-            sx={{ width: 250 }}
+            sx={{ 
+                width: 250, 
+                backgroundColor: theme.palette.primary.main,
+                color: 'white',
+                height: '100%'
+            }}
             role="presentation"
-            onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
         >
-            <Box sx={{ p: 2, display: 'flex', justifyContent: 'center', backgroundColor: `${theme.palette.primary.main}` }}>
-                <img src={logo} alt="logo" style={{ height: '40px' }} />
+            <Box sx={{ 
+                p: 2, 
+                display: 'flex', 
+                justifyContent: 'flex-end'
+            }}>
+                <IconButton 
+                    onClick={toggleDrawer(false)}
+                    sx={{ color: 'white' }}
+                >
+                    <CancelOutlinedIcon sx={{ fontSize: "32px" }}  />
+                </IconButton>
             </Box>
-            <Divider />
             <List>
                 <ListItem disablePadding>
                     <ListItemButton onClick={() => handleNavigation('/')}>
-                        <ListItemText primary="Inicio" />
+                        <ListItemText primary="Inicio" sx={{textAlign: 'right'}} />
                     </ListItemButton>
                 </ListItem>
                 
                 <ListItem disablePadding>
                     <ListItemButton onClick={() => handleNavigation(`/nivel/${NivelTypes.PREPA}`)}>
-                        <ListItemText primary="Prepa Coppel" />
+                        <ListItemText primary="Prepa Coppel" sx={{textAlign: 'right'}} />
                     </ListItemButton>
                 </ListItem>
+                {
+                    botones.map((boton) => (
+                        <ListItem disablePadding key={`item_lst_${boton.id}`}>
+                            <ListItemButton>
+                                <ListItemText inset sx={{textAlign: 'right'}}>
+                                    <div
+                                        key={`item_${boton.id}`}
+                                        onMouseLeave={handleClose}
+                                        style={{ display: 'inline-block' }}
+                                    >
+                                        <Button
+                                            color="inherit"
+                                            onMouseEnter={(e) => handleOpen(e, `item_${boton.id}`)}
+                                            endIcon={menuAbierto === `item_${boton.id}` ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                                            sx={{ textTransform: 'none' }}
+                                        >
+                                            {boton.etiqueta}
+                                        </Button>
 
-                <Divider sx={{ my: 1 }} />
-                
-                {botones.map((boton) => (
-                    <React.Fragment key={boton.id}>
-                        <Typography variant="overline" sx={{ px: 2, fontWeight: 'bold', color: 'text.secondary' }}>
-                            {boton.etiqueta}
-                        </Typography>
-                        {boton.opciones.map((opcion, i) => (
-                            <ListItem key={i} disablePadding>
-                                <ListItemButton onClick={() => handleNavigation(opcion.path)}>
-                                    <ListItemText inset primary={opcion.sub} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    </React.Fragment>
-                ))}
+                                        <Menu
+                                            id={`mouse-over-menu-${boton.id}`}
+                                            anchorEl={anchorEl}
+                                            open={menuAbierto === `item_${boton.id}`}
+                                            onClose={handleClose}
+                                            disableScrollLock={true}
+                                            disableRestoreFocus
+                                            slotProps={{
+                                                paper: {
+                                                    onMouseEnter: () => setMenuAbierto(`item_${boton.id}`),
+                                                    sx: { pointerEvents: 'auto' }
+                                                },
+                                                root: {
+                                                    sx: { pointerEvents: 'none' } 
+                                                }
+                                            }}
+                                            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                                            transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+                                        >
+                                            {boton.opciones.map((opcion, i) => (
+                                                <MenuItem 
+                                                    key={i} 
+                                                    onClick={() => handleNavigation(opcion.path)}
+                                                >
+                                                    <Typography component="span" dangerouslySetInnerHTML={{ __html: opcion.sub }} />
+                                                </MenuItem>
+                                            ))}
+                                        </Menu>
+                                    </div>
+                                </ListItemText>
+                            </ListItemButton>
+                        </ListItem>
+                    ))
+                }
+                                        
+                           
+
             </List>
         </Box>
-    );
+    );    
 
     useEffect(() => {
         const handleScroll = () => {
@@ -278,7 +333,17 @@ export const Header: React.FC = () => {
                 anchor="right"
                 open={drawerOpen}
                 onClose={toggleDrawer(false)}
-                sx={{ display: { md: "none" } }}
+                disableScrollLock={true}
+                ModalProps={{
+                    keepMounted: true,
+                }}
+                sx={{ 
+                    display: { md: "none" },
+                    '& .MuiDrawer-paper': {
+                        boxSizing: 'border-box',
+                        width: 250,
+                    }
+                }}
             >
                 {renderDrawerContent()}
             </Drawer>
